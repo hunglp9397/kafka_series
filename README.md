@@ -22,10 +22,15 @@
    + Topics được chia thành nhiều partitions
    + Trên mỗi dải partitions có nhiều id (gọi là offsets)
    
+   
     => Một khi data được ghi vào partitions, nó không thể bị thay đổi => Không thể xóa data trong KAFKA
+    => Offset chỉ được keep trong một thời gian nhất định ( Mặc định là 1 tuần)
     
     Ví dụ: 1 cty vận chuyển có nhiều xe tải, mỗi xe tải phải thông báo vị itris GPS tới Kafka
           Mỗi xe tải sẽ send message tới Kafka mỗi 20giây, Message chứa : TruckID, TruckPosition( latitude, longitude)
+          
+          => Ta có topic : trucks_gps bao gồm vị trí của tất cả các xe tải
+          
     
     
 
