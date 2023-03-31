@@ -165,6 +165,40 @@ VD :
     * Leader for a Partition
     - Trong một thời điểm chỉ có 1 brocker có thể làm leader cho 1 partition
     - Producer chỉ có thể gửi data tới leader partition
+12. Producer Acknowledgements(ack)
+
+    - Producers có thể chọn để nhận acknowledgement của data,
+       + acks = 0 -> Producer ko thể đợi ack (data có thể bị mất)
+       + acks = 1 -> Producer sẽ đợi ack (Giới hạn data  bị mất)
+       + acks = 11 -> Leader + replica ack (data k mất)
+       
+       
+13. Topic Durability:
+    
+    - Đối với topic sao chép là 3, topic data chỉ có thể chịu đc 2 brocker mất kết nối
+    
+
+14. Zookeeper
+    
+    - Zookeeper quản lí brockers
+    - Zookeeper thực hiện bầu cử leader cho  các partitions
+    - Zookeeper gửi thông báo cho kafka nếu có bất kì thay đổi nào : new topic, brocker dies, brocker come up, delete topic
+   
+    
+    - Kafka 2.x ko thể dùng Zoookeeper
+    - Kafka 3.x có thể làm việc với Zookeeper
+    - Kafka 4.x ko có Zookeeper
+    
+     - Zookeeper được thiết kế hoạt động theo một số lẻ các server : 1,3,5,7
+     
+     - Lợi ích của Zookeeper:
+          + HIển thị khả năng mở rộng của cluster khi có trên 100 000 partitions
+        
+     - Bằng cách loại bỏ  Zookeeper, Kafka có thể:   
+        + Scale tới hàng nghìn partition, dễ dàng cài đặt và maintain
+        + Cải thiện tính chắc chắn, Dễ dàng kiểm soát, hỗ trợ và quản trị
+        + Là một model bảo mật cho hệ thống
+        + Có thể nhanh chóng tắt và phục hồi
     
     
     
