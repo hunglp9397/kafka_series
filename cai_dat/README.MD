@@ -1,0 +1,5 @@
+**Cài đặt Kafka:**
+https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-windows/
+
+
+**Start Zookeeper**
