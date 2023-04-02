@@ -1,6 +1,9 @@
 Link : 
 https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-windows/
 
+
+**CÁCH 1: Start KAFKA bằng ZOOKEEPER** 
+
 B1. Tải về kafka binary
     Giải nén về (Lưu ý ko được giải nén vào folder ProgramFile hoặc ProgramFile(x86) )
     
@@ -8,17 +11,17 @@ B1. Tải về kafka binary
     
 
 
-**B1: Setup network config:**
+**B2: Setup network config:**
 
 `sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1`
 
 
-**B2 : Start Zookeeper** 
+**B3 : Start Zookeeper** 
 
 `zookeeper-server-start.sh ~/kafka_2.13-3.0.0/config/zookeeper.properties`
 
-**B3 : Start Kafka** :
+**B4 : Start Kafka** :
 `kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server.properties`
 
 
@@ -34,7 +37,7 @@ FIx Lỗi :
 - Sau đó vẫn trong thư mục kafka 3.0.0, chạy lệnh : `kafka-server-start.sh config/server.properties`
 
 
-B4: Trên commandline windows: 
+B5: Trên commandline windows: 
     
     `kafka-topics --bootstrap-server [::1]:9092 --list`
 Chạy xong mà k báo lỗi gì là được : 
@@ -42,3 +45,28 @@ Chạy xong mà k báo lỗi gì là được :
 (Lưu ý ảnh ở bước 4 là đã set listener là [::1] và  
 `sudo sysctl -w net.ipv6.conf.all.disable_ipv6=0
 sudo sysctl -w net.ipv6.conf.default.disable_ipv6=0`)
+
+
+
+
+**CÁCH 2: Start Kafka in KRaft mode**
+
+**B1 :**
+
+Trên Ubuntu App chạy lệnh : `kafka-storage.sh random-uuid`
+Kết quả:
+![img.png](img.png)
+
+**B2:** Dùng mã vừa gen ra ở trên thay thế vào <uuid> bằng lệnh:
+
+`kafka-storage.sh format -t <uuid> -c ~/kafka_2.13-3.0.0/config/kraft/server.properties`
+
+Ví dụ:
+![img_1.png](img_1.png)
+
+**B3:**
+
+Chạy lệnh : `kafka-server-start.sh ~/kafka_2.13-3.0.0/config/kraft/server.properties`
+
+Kết quả :
+![img_2.png](img_2.png)
