@@ -39,10 +39,11 @@ FIx Lỗi :
 
 B5: Trên commandline windows: 
     
-    `kafka-topics --bootstrap-server [::1]:9092 --list`
+    `kafka-topics --bootstrap-server localhost:9092 --list`
 Chạy xong mà k báo lỗi gì là được : 
 ![img_3.png](img_3.png)
-(Lưu ý ảnh ở bước 4 là đã set listener là [::1] và  
+
+Lưu ý : nếu mà ko phải chạy ở localhost thì sửa listener là [::1] và set:
 `sudo sysctl -w net.ipv6.conf.all.disable_ipv6=0
 sudo sysctl -w net.ipv6.conf.default.disable_ipv6=0`)
 
