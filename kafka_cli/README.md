@@ -17,10 +17,30 @@ Thu được kết quả như hình :
 ![img_1.png](img_1.png)
 
 
-B3: Vẫn trong thư mục kafka_cli, tạo topics bằng lệnh : `kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic first_topic --partitions 3 --replication-factor 1`
+B3: Vẫn trong thư mục kafka_cli, tạo topics bằng lệnh :
+
+`kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic first_topic --partitions 3 --replication-factor 1`
 
 => 
 Kết quả : 
 ![img_2.png](img_2.png)
 
 ![img_3.png](img_3.png)
+
+**Tạo topics có 5 partitions bằng lệnh :**
+
+`kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic second_topic --partitions 5 --replication-factor 2
+`
+
+
+**list topics**
+
+`kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --list`
+
+![img_4.png](img_4.png)
+
+**describe topics**
+
+`kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --describe
+`
+![img_5.png](img_5.png)

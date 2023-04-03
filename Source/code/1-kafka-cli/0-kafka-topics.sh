@@ -20,10 +20,10 @@ kafka-topics --command-config playground.config --bootstrap-server cluster.playg
 kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic first_topic --partitions 3 --replication-factor 1
 
 
-kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic second_topic --partitions 5
+kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic second_topic --partitions 5 --replication-factor 2
 
 # this will create a topic with an RF of 3 (behaviour of using Conduktor Platform - all topics have the same RF of 3)
-kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic third_topic --replication-factor 2
+kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic third_topic --partitions 3 --replication-factor 2
 
 # list topics
 kafka-topics --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --list
