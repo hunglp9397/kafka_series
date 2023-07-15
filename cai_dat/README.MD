@@ -18,27 +18,28 @@ sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1`
 
 
 **B3 : Start Zookeeper** 
-
+- Mở app Ubuntu trên windows
+- Chạy lệnh sau:
 `zookeeper-server-start.sh ~/kafka_2.13-3.0.0/config/zookeeper.properties`
 
 **B4 : Start Kafka** :
+- Mở app Ubuntu trên windows
+- Chạy lệnh sau:
 `kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server.properties`
 
 
-
 FIx Lỗi : 
-- Trong Ubuntu APP
-    cd tới thư mục kafka, chạy lệnh sau : `nano config/server.properties`
+- Trong Ubuntu APP  cd tới thư mục kafka:  `cd kafka_2.13-3.0.0/`
+- chạy lệnh sau : `nano config/server.properties`
     ![img.png](img.png)
-
 - Sửa Listener thành như sau:
 
 ![img_2.png](img_2.png)
 - Sau đó vẫn trong thư mục kafka 3.0.0, chạy lệnh : `kafka-server-start.sh config/server.properties`
 
 
-B5: Trên commandline windows: 
-    
+B5: Trên commandline windows:
+    Chạy lệnh:
     `kafka-topics --bootstrap-server localhost:9092 --list`
 Chạy xong mà k báo lỗi gì là được : 
 ![img_3.png](img_3.png)
