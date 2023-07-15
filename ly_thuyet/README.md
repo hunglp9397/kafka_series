@@ -206,8 +206,6 @@ VD :
     - Zookeeper quản lí brockers
     - Zookeeper thực hiện bầu cử leader cho  các partitions
     - Zookeeper gửi thông báo cho kafka nếu có bất kì thay đổi nào : new topic, brocker dies, brocker come up, delete topic
-   
-    
     - Kafka 2.x ko thể dùng Zoookeeper
     - Kafka 3.x có thể làm việc với Zookeeper
     - Kafka 4.x ko có Zookeeper
@@ -223,8 +221,6 @@ VD :
         + Là một model bảo mật cho hệ thống
         + Có thể nhanh chóng tắt và phục hồi
     
-    
-    asdfasdf
 
  
 
