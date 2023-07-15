@@ -11,7 +11,7 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
 
     @Bean
-    public NewTopic testTopic(){
+    public NewTopic testTopic() {
         return TopicBuilder.name("hunglptopic").build();
     }
 }

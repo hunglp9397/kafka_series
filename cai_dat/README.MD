@@ -4,15 +4,15 @@ https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-windows/
 
 **CÁCH 1: Start KAFKA bằng ZOOKEEPER** 
 
-B1. Tải về kafka binary
+B0. Tải về kafka binary
     Giải nén về (Lưu ý ko được giải nén vào folder ProgramFile hoặc ProgramFile(x86) )
     
  Sau đó add environment với path : _C:\Users\hunglp\kafka_2.13-3.0.0\bin\windows_
-    
 
+
+**B1: Tải app Ubuntu, mk là : hunglp**
 
 **B2: Setup network config:**
-
 `sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1`
 
@@ -26,7 +26,6 @@ sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1`
 - Mở app Ubuntu trên windows
 - Chạy lệnh sau:
 `kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server.properties`
-
 
 FIx Lỗi : 
 - Trong Ubuntu APP  cd tới thư mục kafka:  `cd kafka_2.13-3.0.0/`
