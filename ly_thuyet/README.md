@@ -1,12 +1,33 @@
 
-----------------------------------------------------------------------------KAFKA----------------------------------------------------------------------------
-Là một hệ thống phân tán, kiến trúc có khả năng phục hồi, chịu lỗi 
-Có thể scale tới 100 broker, hàng nghìn message trên giây
-Hiệu năng cao, thời gian thực
+----------------------------------------------------------------------------**KAFKA**----------------------------------------------------------------------------
+- Là một hệ thống phân tán, kiến trúc có khả năng phục hồi, chịu lỗi 
+- Có thể scale tới 100 broker, hàng nghìn message trên giây
+- Hiệu năng cao, thời gian thực
+- Kafka đóng vai trò communicate giữa ca hệ thống
+![img_1.png](img_1.png)
 
 
 
-1. Kafka topics
+1. **Cấu trúc của Apache Kafka:**
+    - Cấu trúc đơn giản
+    - ![img_2.png](img_2.png)
+    - Cấu trúc chi tiết:
+    - ![img_3.png](img_3.png)
+   
+2. ** Kafka Broker Cluster **
+    - ![img_4.png](img_4.png)
+    - Một máy có thể chạy nhiều server kafka
+    - Mỗi một server đó gọi là broker
+    - Nếu Tất cả các broker (server kafka) đều trỏ chung tới 1 zookeeper thì được gọi là broker(Clusters)
+3. ** Kafka Zookeeper**
+    - Kiểm soát trạng thái của cluster (brokers, topics, users, …)
+   
+4. ** Kafka Broker **
+    - ![img_5.png](img_5.png)
+    - Xử lý tất cả các yêu cầu từ client (produce, consume, metadata) và giữ dữ liệu được sao chép trong cụm. 
+    - Có thể có một hoặc nhiều broker trong một Cluster (Vừa đề cập ở mục 2).
+
+5. **Kafka topics**
     
     - topics là một stream data đặc biệt 
     - Tưong tự như table trong 1 datatable) => 
@@ -16,7 +37,7 @@ Hiệu năng cao, thời gian thực
     - Thứ tự mesage được gọi là datastream
     - Không thể truy vấn topics, Sử dụng Kafka Producer để send data và kafka consumer để đọc data
     
-2. Kafka partitions
+6. **Kafka partitions**
 
     - Topics được chia thành nhiều partitions
     - Trên mỗi dải partitions có nhiều id (gọi là offsets)
@@ -26,7 +47,7 @@ Hiệu năng cao, thời gian thực
     Ví dụ: 1 cty vận chuyển có nhiều xe tải, mỗi xe tải phải thông báo vị trí GPS tới Kafka => Ta có topic là "truck_gps" chứa tất cả các vị trí của xe tải
            Ở đây topic chứa 10 partitions
            
-3. Offset
+7. **Offset**
     - Trên mỗi dải partitions bao gồm nhiều id ( gọi là offsets)
     
     - Trên cùng một partition, offset được đảm bảo theo thứ tự
@@ -34,19 +55,20 @@ Hiệu năng cao, thời gian thực
     - Offset chỉ được keep trong một thời gian nhất định ( Mặc định là 1 tuần)
     
     - Mỗi offset ở mỗi partitions là duy nhất ( Ví dụ offset 3 , partitions 0 sẽ khác data với offset 3, partitions 1)
-    
+    - Data được lưu với thời gian giới hạn ( mặc định là 2 tuần)
+    - 
     - Offset sẽ k được tái sử dụng mặc dù message trước đó đã bị xóa
 
-4. Producers
+8. **Producers**
 
    -  Producers ghi data vào topics, Nó sẽ tự động  xác định partitions nào sẽ ghi data vào và sẽ tự recover nó
     
    -  Producers có thể lựa chọn gửi key cùng với mesage
          
         + Nếu key = null, -> Data được gửi là roundrotbin
-        + Nếu  key != ull, Tất cả các message được gửi sẽ đến cùng một partitions
-    
-5. Kafka mesage 
+        + Nếu  key != null, Tất cả các message được gửi sẽ đến cùng một partitions
+
+9. **Kafka message** 
     
     - Cấu tạo : 
         + Key - binary (có thể null)
@@ -78,7 +100,7 @@ Hiệu năng cao, thời gian thực
 - Consumers đọc data từ topic(Nhớ là topic được xác định theo tên)
 - Consumers Deserializer:
    + Deserialzier convert bytes thành objecst/data
-   + Thường được dùng cho key và value của message( mục V)
+   + Thường được dùng cho key và value của message( mục 10)
    + Một số Desserializers thông dụng :  String, Int, Float, Avro, Protobuf
    + Serialization / Deserialization type ko được phép thay đổi trong vòng đời của một topic
 
@@ -86,7 +108,8 @@ Hiệu năng cao, thời gian thực
 9. Consumer Group
 
 - Tất cả các consumer trong application mà read data được gọi là Consumer Group
-_ Mỗi consumer trong Consumer Group có thể đọc nhiều partitions, Tuy nhiên các consumer trong consumer group ko thể đọc các partitions của nhau
+- Mỗi consumer trong Consumer Group có thể đọc nhiều partitions,
+- Tuy nhiên các consumer trong consumer group ko thể đọc các partitions của nhau
     
     VD : Consumer 1 -> partition 0
                     -> partition 1
