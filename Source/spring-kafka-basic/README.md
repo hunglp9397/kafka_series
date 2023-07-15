@@ -7,3 +7,7 @@
 4. Kiểm tra nội dung topic ở cmd Ubuntu bằng lệnh : ``kafka-console-consumer.sh --topic hunglptopic --from-beginning --bootstrap-server localhost:9092``
     - Kết quả:
    ![img_3.png](img_3.png)
+5. Event message:
+    - ![img_4.png](img_4.png)
+6. Consume message:
+    - ![img_5.png](img_5.png)
