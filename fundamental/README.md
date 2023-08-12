@@ -66,23 +66,30 @@
 - 
 - Offset sẽ k được tái sử dụng mặc dù message trước đó đã bị xóa
 
-### 8. Producers
+### 8. Kafka Producers
 
 -  Producers ghi data vào topics, Nó sẽ tự động  xác định partitions nào sẽ ghi data vào và sẽ tự recover nó
     
--  Producers có thể lựa chọn gửi key cùng với mesage
+-  Producers có thể lựa chọn gửi key cùng với message
          
-     + Nếu key = null, -> Data được gửi là roundrotbin
-     + Nếu  key != null, Tất cả các message được gửi sẽ đến cùng một partitions
+     + Nếu key = null,
+        + Message sẽ ko được Producer chỉ định 
+        + Message được chia đều vào các partition trong Topics
+        + Và được chia đều theo thuaatj toán round-robin (p0 -> p1 -> p2 -> p0 -> p1 -> p2 -> ....)
+     + Nếu  key != null, 
+       + Tất cả các message mà có cùng key sẽ được gửi sẽ đến cùng một partitions
+       + Do đó có thể dùng để xác định rõ muốn message nào sẽ gửi đến partition nào 
+       + ![img_8.png](img_8.png)
 
 ### 9. Kafka message
-    
+
 - Cấu tạo : 
+    + ![img_9.png](img_9.png)
     + Key - binary (có thể null)
     + Value - binary ( có thể null)
     + CompressType (none, gzip, snappy, lz4, zstd)
     + Headers(k bắt buộc)
-    + Partion + Offset 
+    + Partition + Offset (Combo Partion + Offset + Topic để phân biệt các message với nhau)
     + Timestamp (từ hệ thống hoặc user set giá trị)
         
 ### 6. Kafka Message Serializer
@@ -97,14 +104,14 @@
     + Key Object(123)             ------Key Serializer(IntegerSerializer)-----> binary 01110011 
     + Value Object("hello world)  ------Value Serializer (String Serializer) -----> binary 001100100000100001010101001
     
-### 7. Kafka Mesage Key Hashing(Bonus)
+### 7. Kafka Message Key Hashing(Bonus)
 
 - Kafka Partioner là code logic xác định record được đẩy vào partitions nào
 - Key hashing là process xác định key sẽ map tới partition nào
 - Sử dụng Thuật toán murmur2 :
     targetPartition = Math.abs(Utils.murmur2(keyBytes)) % (numPartitions -1)
     
-### 8. Consumers
+### 8. Kafka Consumers
 
 - Consumers đọc data từ topic(Nhớ là topic được xác định theo tên)
 - Consumers Deserializer:
@@ -115,22 +122,25 @@
 
 
 ### 9. Consumer Group
-
+- ![img_7.png](img_7.png)
 - Tất cả các consumer trong application mà read data được gọi là Consumer Group
 - Mỗi consumer trong Consumer Group có thể đọc nhiều partitions,
 - Tuy nhiên các consumer trong consumer group ko thể đọc các partitions của nhau
+
     
-   ````````
-        VD : Consumer 1 -> partition 0
+   - ````````
+        VD : 
+        Consumer 1 -> partition 0
                     -> partition 1
         Consumer 2  -> partition 2 
                     -> partition 3
         Consumer 3  -> partition 4
                     -> partition 5
-                    
+               
 - Nếu Có số lượng Consumer lớn hơn Số lượng Partitions -> Một số consumer sẽ k hoạt động
      ``````
-   VD :   Consumer 1 -> [Topic A][Partition 0]
+   VD :  
+          Consumer 1 -> [Topic A][Partition 0]
           COnsumer 2 -> [Topic A ][Partiion 1]
           Consumer 3 -> [Topic A][Partition 2]
           Consumer 4 (INACTIVE)
