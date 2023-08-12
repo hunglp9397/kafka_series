@@ -46,8 +46,8 @@
 => Một khi data được ghi vào partitions, nó không thể bị thay đổi tức là  Không thể xóa data trong KAFKA
 
 **- Ví dụ về Kafka Topíc - Partitions :**
-    + 1 Cty vận chuyển, co nhiều xe tải tham gia hoạt động vận chuyển
-    + Môi 20s các xe tải cần gửi 1 topics là "truck_gps", Topic này bao gồm TruckID và TrucKposition
+    + 1 Cty vận chuyển, có nhiều xe tải tham gia hoạt động vận chuyển
+    + Môi 20s các xe tải cần gửi 1 topics là "truck_gps", Topic này bao gồm TruckID và Truck position
     + Topic "truck_gps" có thể được chia thành nhiều partitions, có thể là 10
     + Có thể có nhiều consumers, Giả sử ở đây là 2.
        + Một consumer nhận vị trí của các xe tải và hieern thị lên màn hình
@@ -111,9 +111,15 @@
 - Sử dụng Thuật toán murmur2 :
     targetPartition = Math.abs(Utils.murmur2(keyBytes)) % (numPartitions -1)
     
-### 8. Kafka Consumers
+### 8. Kafka Consumer
 
 - Consumers đọc data từ topic(Nhớ là topic được xác định theo tên)
+- Consumers có thể đọc 1 hoặc nhiều partitions tại một thời điểm, Dữ liệu được đọc phải theo thứ tự của mỗi partitions như hình dưới :
+   + ![img_10.png](img_10.png)
+- Consumers sẽ đọc từ offset thấp đến offset cao, và ko thể đọc ngược lại
+- Nếu Consumers đọc từ nhiều partitions, Thứ thự tin nhắn sẽ ko được đảm bảo giữa nhiều partions, Tuy nhiên message được đọc vẫn theo thứ tự của từng partition
+- Consumers sẽ thực thi bằng cách request message từ Producer -> Do ó consumers có thể kiểm soát được tốc độ của topics mà nó consume đc
+- Nhớ rằng Producers gửi message cho Consumers dạng message đã được mã hóa -> Để consumer đọc được thì lại cần giải mã message
 - Consumers Deserializer:
    + Deserialzier convert bytes thành objecst/data
    + Thường được dùng cho key và value của message( mục 10)
@@ -154,11 +160,11 @@
     
     + Group 2 
             Consumer 1 -> [Topic A][Partition 0]
-            COnsumer 2 -> [Topic A ][Partiion 1]
+            COnsumer 2 -> [Topic A][Partition 1]
             Consumer 3 -> [Topic A][Partition 2]
 
 ### 10. Consumer Offsets
-
+   - ![img_11.png](img_11.png)
    -  Kafka lưu vị trí mà consumer group đang đọc
    -  Một offset mà được commited trong Topic được đặt tên là __consumer_ofsets
    - Khi một consumer trong group xử li và đọc data từ Kafka., Nó sẽ được định kì commit offset( Kafka broker sẽ ghi vào __consumer_offset, k phải là consumer group)
@@ -169,7 +175,7 @@
     + Đúng 1 lần
     + Nhiều nhất 1 lần
 
-### 11. Kafker Broker 
+### 11. Kafka Broker 
 -   _Hiểu đơn giản là thằng vận chuyển topics/partitions_
 -   Một Kafka được cấu tạo bởi nhiều brokers(server)
 -   Mỗi brokers được xác định bởi ID (integer)
@@ -216,30 +222,30 @@ VD :
    + acks = 11 -> Leader + replica ack (data k mất)
        
        
-13. Topic Durability:
+### 13. Topic Durability:
     
-    - Đối với topic sao chép là 3, topic data chỉ có thể chịu đc 2 brocker mất kết nối
+- Đối với topic sao chép là 3, topic data chỉ có thể chịu đc 2 brocker mất kết nối
     
 
-14. Zookeeper
+### 14. Zookeeper
     
-    - Zookeeper quản lí brockers
-    - Zookeeper thực hiện bầu cử leader cho  các partitions
-    - Zookeeper gửi thông báo cho kafka nếu có bất kì thay đổi nào : new topic, brocker dies, brocker come up, delete topic
-    - Kafka 2.x ko thể dùng Zoookeeper
-    - Kafka 3.x có thể làm việc với Zookeeper
-    - Kafka 4.x ko có Zookeeper
+- Zookeeper quản lí brokers
+- Zookeeper thực hiện bầu cử leader cho  các partitions
+- Zookeeper gửi thông báo cho kafka nếu có bất kì thay đổi nào : new topic, brocker dies, brocker come up, delete topic
+- Kafka 2.x ko thể dùng Zoookeeper
+- Kafka 3.x có thể làm việc với Zookeeper
+- Kafka 4.x ko có Zookeeper
+
+ - Zookeeper được thiết kế hoạt động theo một số lẻ các server : 1,3,5,7
+ 
+ - Lợi ích của Zookeeper:
+      + HIển thị khả năng mở rộng của cluster khi có trên 100 000 partitions
     
-     - Zookeeper được thiết kế hoạt động theo một số lẻ các server : 1,3,5,7
-     
-     - Lợi ích của Zookeeper:
-          + HIển thị khả năng mở rộng của cluster khi có trên 100 000 partitions
-        
-     - Bằng cách loại bỏ  Zookeeper, Kafka có thể:   
-        + Scale tới hàng nghìn partition, dễ dàng cài đặt và maintain
-        + Cải thiện tính chắc chắn, Dễ dàng kiểm soát, hỗ trợ và quản trị
-        + Là một model bảo mật cho hệ thống
-        + Có thể nhanh chóng tắt và phục hồi
+ - Bằng cách loại bỏ  Zookeeper, Kafka có thể:   
+    + Scale tới hàng nghìn partition, dễ dàng cài đặt và maintain
+    + Cải thiện tính chắc chắn, Dễ dàng kiểm soát, hỗ trợ và quản trị
+    + Là một model bảo mật cho hệ thống
+    + Có thể nhanh chóng tắt và phục hồi
     
 
  
