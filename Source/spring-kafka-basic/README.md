@@ -1,4 +1,4 @@
-1. Start Kafka như trong mục "cai_dat"
+1. Start Kafka như trong mục "install"
 2. Cấu hình 1 topic như sau:
     -![img_1.png](img_1.png)
 3. Ktra topic ở cmd Windows bằng lệnh: `kafka-topics --bootstrap-server localhost:9092 --list`
