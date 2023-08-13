@@ -3,7 +3,7 @@
 - Là một hệ thống phân tán, kiến trúc có khả năng phục hồi, chịu lỗi 
 - Có thể scale tới 100 broker, hàng nghìn message trên giây
 - Hiệu năng cao, thời gian thực
-- Kafka đóng vai trò communicate giữa ca hệ thống
+- Kafka đóng vai trò communicate giữa các hệ thống
 ![img_1.png](img_1.png)
 
 
