@@ -16,8 +16,11 @@ https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-windows/
 ### B1: Tải app Ubuntu, mk là : hunglp
 
 ### B2: Setup network config:
-`sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
-sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1`
+````bash
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+````
+
 
 
 ### B3 : Start Zookeeper

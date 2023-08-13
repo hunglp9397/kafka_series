@@ -1,6 +1,6 @@
 **KAFKA CLI**
 
-[Source : ](../Source/code/1-kafka-cli)
+[Source : ](../reference-source-conducktor/code/1-kafka-cli)
 
 **Folder thực hành project** :  _/kafka_series/kafka_cli_
 
