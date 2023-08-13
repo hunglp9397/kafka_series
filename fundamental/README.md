@@ -189,13 +189,13 @@ VD :
     Toptic B have 2 partitions
     
     => 
-    Brocker 1 : Topic A Partition 0
-                Topic B Partitions 1
-    
-    Brocker 2 : Topic A  Partition 2
-                Topic B  Partition 0
-    
-    Brocker 3 : Topic A, Partition1
+        Brocker 1 : Topic A Partition 0
+                    Topic B Partitions 1
+        
+        Brocker 2 : Topic A  Partition 2
+                    Topic B  Partition 0
+        
+        Brocker 3 : Topic A, Partition1
     
     
     Node : data được phân bổ, brocker 3 ko thể có bất kỳ Topic B data vì Topic B đã hết partitions
@@ -203,16 +203,23 @@ VD :
     
 
 ### 12. Topic Replication factor
-
 - Topic nên có số lần nhân bản > 1 (Thường là 2 hoặc 3)
-- Bằng cách này nếu broker bị down, 1 brocker khác có thể phục vụ data
-- 
+- Bằng cách này nếu broker bị down, 1 broker khác có thể xử lý data
+- Ví dụ như sau:
+   + ![img_13.png](img_13.png)
+   + ![img_14.png](img_14.png)
 
-
-* Leader for a Partition
-- Trong một thời điểm chỉ có 1 brocker có thể làm leader cho 1 partition
-- Producer chỉ có thể gửi data tới leader partition
-
+- Leader for a Partition
+  + Trong một thời điểm chỉ có 1 broker có thể làm leader cho 1 partition
+  + Mỗi một partition sẽ có 1 leander và nhiều replica
+  + Producer chỉ có thể gửi data tới leader partition
+  + ![img_15.png](img_15.png)
+    + Ở hình trên thì:
+    + Broker 101 là Leader của partition 0
+    + Brokder 102 là Leader của partition 1
+    + Broker 101 là replica cho Broker 0
+    + Broker 103 là replica cho broker 1
+    + Khi một leader bị down => Leader fail sẽ đươ thế chỗ
 ### 12. Producer Acknowledgements(ack)
 
 - Producers có thể chọn để nhận acknowledgement của data,
