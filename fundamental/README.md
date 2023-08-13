@@ -63,7 +63,6 @@
 
 - Mỗi offset ở mỗi partitions là duy nhất ( Ví dụ offset 3 , partitions 0 sẽ khác data với offset 3, partitions 1)
 - Data được lưu với thời gian giới hạn ( mặc định là 2 tuần)
-- 
 - Offset sẽ k được tái sử dụng mặc dù message trước đó đã bị xóa
 
 ### 8. Kafka Producers
@@ -151,8 +150,8 @@
           Consumer 3 -> [Topic A][Partition 2]
           Consumer 4 (INACTIVE)
          
-- Kafka cho phép Consumer( Từ các Consumer Group) read cùng một  topic/partitions 
-    
+- Kafka cho phép Consumer( Trong cùng một  Consumer Group) consume  cùng một topic/partitions 
+    ````
     + GROUP 1 : 
             Consumer 1 -> [Topic A][Partition 0]
             Consumer 2 -> [Topic A][Partition 1]
