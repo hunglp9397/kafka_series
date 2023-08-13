@@ -4,18 +4,18 @@
 - Có thể scale tới 100 broker, hàng nghìn message trên giây
 - Hiệu năng cao, thời gian thực
 - Kafka đóng vai trò communicate giữa các hệ thống
-![img_1.png](img_1.png)
+![img_1.png](imgs/img_1.png)
 
 
 
 ### 1. Cấu trúc của Apache Kafka:
    - Cấu trúc đơn giản
-     + ![img_2.png](img_2.png)
+     + ![img_2.png](imgs/img_2.png)
    - Cấu trúc chi tiết:
-     + ![img_3.png](img_3.png)
+     + ![img_3.png](imgs/img_3.png)
    
 ### 2. Kafka Broker Cluster
-- ![img_4.png](img_4.png)
+- ![img_4.png](imgs/img_4.png)
 - Một máy có thể chạy nhiều server kafka
 - Mỗi một server đó gọi là broker
 - Nếu Tất cả các broker (server kafka) đều trỏ chung tới 1 zookeeper thì được gọi là Kafka Clusters
@@ -24,7 +24,7 @@
  - Kiểm soát trạng thái của cluster (brokers, topics, users, …)
    
 ### 4. Kafka Broker 
-- ![img_5.png](img_5.png)
+- ![img_5.png](imgs/img_5.png)
 - Xử lý tất cả các yêu cầu từ client (produce, consume, metadata) và giữ dữ liệu được sao chép trong cụm. 
 - Có thể có một hoặc nhiều broker trong một Cluster (Vừa đề cập ở mục 2).
 
@@ -40,7 +40,7 @@
 
 ### 6. Kafka partitions
 
-- ![img_6.png](img_6.png)
+- ![img_6.png](imgs/img_6.png)
 - Topics được chia thành nhiều partitions
 - Trên mỗi dải partitions có nhiều id (gọi là offsets)
 => Một khi data được ghi vào partitions, nó không thể bị thay đổi tức là  Không thể xóa data trong KAFKA
@@ -78,12 +78,12 @@
      + Nếu  key != null, 
        + Tất cả các message mà có cùng key sẽ được gửi sẽ đến cùng một partitions
        + Do đó có thể dùng để xác định rõ muốn message nào sẽ gửi đến partition nào 
-       + ![img_8.png](img_8.png)
+       + ![img_8.png](imgs/img_8.png)
 
 ### 9. Kafka message
 
 - Cấu tạo : 
-    + ![img_9.png](img_9.png)
+    + ![img_9.png](imgs/img_9.png)
     + Key - binary (có thể null)
     + Value - binary ( có thể null)
     + CompressType (none, gzip, snappy, lz4, zstd)
@@ -114,7 +114,7 @@
 
 - Consumers đọc data từ topic(Nhớ là topic được xác định theo tên)
 - Consumers có thể đọc 1 hoặc nhiều partitions tại một thời điểm, Dữ liệu được đọc phải theo thứ tự của mỗi partitions như hình dưới :
-   + ![img_10.png](img_10.png)
+   + ![img_10.png](imgs/img_10.png)
 - Consumers sẽ đọc từ offset thấp đến offset cao, và ko thể đọc ngược lại
 - Nếu Consumers đọc từ nhiều partitions, Thứ thự tin nhắn sẽ ko được đảm bảo giữa nhiều partions, Tuy nhiên message được đọc vẫn theo thứ tự của từng partition
 - Consumers sẽ thực thi bằng cách request message từ Producer -> Do ó consumers có thể kiểm soát được tốc độ của topics mà nó consume đc
@@ -127,7 +127,7 @@
 
 
 ### 9. Consumer Group
-- ![img_7.png](img_7.png)
+- ![img_7.png](imgs/img_7.png)
 - Tất cả các consumer trong application mà read data được gọi là Consumer Group
 - Mỗi consumer trong Consumer Group có thể đọc nhiều partitions,
 - Tuy nhiên các consumer trong consumer group ko thể đọc các partitions của nhau
@@ -163,7 +163,7 @@
             Consumer 3 -> [Topic A][Partition 2]
 
 ### 10. Consumer Offsets
-   - ![img_11.png](img_11.png)
+   - ![img_11.png](imgs/img_11.png)
    -  Kafka lưu vị trí mà consumer group đang đọc
    -  Một offset mà được commited trong Topic được đặt tên là __consumer_ofsets
    - Khi một consumer trong group xử li và đọc data từ Kafka., Nó sẽ được định kì commit offset( Kafka broker sẽ ghi vào __consumer_offset, k phải là consumer group)
@@ -206,21 +206,27 @@ VD :
 - Topic nên có số lần nhân bản > 1 (Thường là 2 hoặc 3)
 - Bằng cách này nếu broker bị down, 1 broker khác có thể xử lý data
 - Ví dụ như sau:
-   + ![img_13.png](img_13.png)
-   + ![img_14.png](img_14.png)
+   + ![img_13.png](imgs/img_13.png)
+   + ![img_14.png](imgs/img_14.png)
 
 - Leader for a Partition
   + Trong một thời điểm chỉ có 1 broker có thể làm leader cho 1 partition
   + Mỗi một partition sẽ có 1 leander và nhiều replica
   + Producer chỉ có thể gửi data tới leader partition
-  + ![img_15.png](img_15.png)
+  + ![img_15.png](imgs/img_15.png)
     + Ở hình trên thì:
     + Broker 101 là Leader của partition 0
     + Brokder 102 là Leader của partition 1
     + Broker 101 là replica cho Broker 0
     + Broker 103 là replica cho broker 1
     + Khi một leader bị down => Leader fail sẽ đươ thế chỗ
-### 12. Producer Acknowledgements(ack)
+      . In-Sync Replicas (ISR).
+### 13.In-Sync Replicas (ISR).
+- Nó để ám chỉ rằng những Replica sẵn sàng được lên làm Leader Broker cho 1 partition. 
+- Bất kỳ những replica khác không sẵn sàng lên làm Leader thì gọi là out of sync.
+- Hình ảnh mô tả cho nó sẽ như sau:
+- ![img.png](img/img.png)
+### 14. Producer Acknowledgements(ack)
 
 - Producers có thể chọn để nhận acknowledgement của data,
    + acks = 0 -> Producer ko thể đợi ack (data có thể bị mất)
@@ -228,12 +234,12 @@ VD :
    + acks = 11 -> Leader + replica ack (data k mất)
        
        
-### 13. Topic Durability:
+### 15. Topic Durability:
     
 - Đối với topic sao chép là 3, topic data chỉ có thể chịu đc 2 brocker mất kết nối
     
 
-### 14. Zookeeper
+### 16. Zookeeper
     
 - Zookeeper quản lí brokers
 - Zookeeper thực hiện bầu cử leader cho  các partitions
