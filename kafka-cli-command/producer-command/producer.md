@@ -1,0 +1,3 @@
+# CÁC LỆNH KAFKA PRODUCERS CƠ BẢN
+
+### 1.
