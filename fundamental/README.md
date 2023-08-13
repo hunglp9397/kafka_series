@@ -45,7 +45,7 @@
 - Trên mỗi dải partitions có nhiều id (gọi là offsets)
 => Một khi data được ghi vào partitions, nó không thể bị thay đổi tức là  Không thể xóa data trong KAFKA
 
-- Ví dụ về Kafka Topíc - Partitions 
+- Ví dụ về Kafka Topics - Partitions 
     + 1 Cty vận chuyển, có nhiều xe tải tham gia hoạt động vận chuyển
     + Môi 20s các xe tải cần gửi 1 topics là "truck_gps", Topic này bao gồm TruckID và Truck position
     + Topic "truck_gps" có thể được chia thành nhiều partitions, có thể là 10
