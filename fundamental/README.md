@@ -18,7 +18,7 @@
 - ![img_4.png](img_4.png)
 - Một máy có thể chạy nhiều server kafka
 - Mỗi một server đó gọi là broker
-- Nếu Tất cả các broker (server kafka) đều trỏ chung tới 1 zookeeper thì được gọi là broker(Clusters)
+- Nếu Tất cả các broker (server kafka) đều trỏ chung tới 1 zookeeper thì được gọi là Kafka Clusters
 
 ### 3. Kafka Zookeeper
  - Kiểm soát trạng thái của cluster (brokers, topics, users, …)
