@@ -17,3 +17,14 @@ hunglp@HungLP:~$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --t
 hello world
 ```
 
+### Console log ở Consumer.java khi thực hiện produce message khác nhau ở file Producer.java
+
+```bash
+[main] INFO com.hunglp.Consumer - Key: null, Value: hello world
+[main] INFO com.hunglp.Consumer - Partition: 2, Offset:0
+[main] INFO com.hunglp.Consumer - Key: null, Value: tim em bao la
+[main] INFO com.hunglp.Consumer - Partition: 2, Offset:1
+[main] INFO com.hunglp.Consumer - Key: null, Value: Mac Ke doi cho nguoi ta
+[main] INFO com.hunglp.Consumer - Partition: 2, Offset:2
+```
+
