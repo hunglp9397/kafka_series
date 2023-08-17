@@ -28,7 +28,7 @@ public class Producer {
 
         // create a producer record
         ProducerRecord<String, String> producerRecord =
-                new ProducerRecord<>("demo_java", "hello world");
+                new ProducerRecord<>("demo_java", "Hello_3");
 
         // send data - asynchronous
         producer.send(producerRecord);
