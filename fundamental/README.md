@@ -179,28 +179,14 @@
 -   Một Kafka được cấu tạo bởi nhiều brokers(server)
 -   Mỗi brokers được xác định bởi ID (integer)
 -   Mỗi broker chứa một số lượng topic, partitions 
--   Sau khi connect tới bất kì brocker nào khác, hệ thống sẽ được kết nối tới toàn bộ cluster
--   Tốt nhất là start với 3 brocker
+- Thông thường là start với 3 broker
 -  Mỗi kafka broker còn được gọi là bootstrap server, -> nghĩa là chỉ cần connect tới 1 broker là ok
 
-VD : 
-    
-    Topic A have 3 partitions, 
-    Toptic B have 2 partitions
-    
-    => 
-        Brocker 1 : Topic A Partition 0
-                    Topic B Partitions 1
-        
-        Brocker 2 : Topic A  Partition 2
-                    Topic B  Partition 0
-        
-        Brocker 3 : Topic A, Partition1
-    
-    
-    Node : data được phân bổ, brocker 3 ko thể có bất kỳ Topic B data vì Topic B đã hết partitions
-    
-    
+- Ví dụ trong trường hợp sau có 3 broker, Topic A có 3 partition, Để đảm bảo high reliable, Kafka tự động phân tán các partition trên tất cả broker đang có. Mỗi partition nằm trên một broker
+![x1.jpg](imgs/x1.jpg)
+- Giả sử có thêm một Topic B có 2 partitions, Khi đó sẽ được phân bổ như sau:
+  ![x2.jpg](imgs/x2.jpg) 
+- Tiếp tục có thêm một topic 
 
 ### 12. Topic Replication factor
 - Topic nên có số lần nhân bản > 1 (Thường là 2 hoặc 3)

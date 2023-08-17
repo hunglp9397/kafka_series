@@ -1,4 +1,4 @@
-# CÁC LỆNH KAFKA TOPICS CƠ BẢN
+# Phần 1: CÁC LỆNH KAFKA TOPICS CƠ BẢN
 
 #### 1. Tạo topics:
 
@@ -52,4 +52,10 @@ Topic: first_topic	Partition: 4	Leader: 2	Replicas: 2	Isr: 2
 ```bash
 `kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic first-topic
 ``````
+-----------------------------------------------------------------------------------------------------------------------
+# Phần 2: Kafka Topics Advanced
+### 1. Thay đổi Kafka Topic config 
 
+- Có thể thay đổi các trường sau:
+  + Replication Factor 
+  + 
