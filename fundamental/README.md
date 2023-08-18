@@ -246,6 +246,12 @@
     + Có thể nhanh chóng tắt và phục hồi
     
 
+---------------- Advanced Concepts ---------------
+1. Kafka Segment và Index:
+- Kafka brokers chia partition thành các segments, Mỗi segment được chứa trong 1 vùng nhớ trong broker
+- Theo mặc định mỗi segment chứa 1 GB data và thời hạn là  1 tuần 								
+- Khi một kafka broker nhận được dữ liệu cho cho một partition, Khi dl nhiều tới mức vượt quá giớ hạt của segment, nó sẽ đóng file và ghi vào một segment mới								
+
  
 
 
