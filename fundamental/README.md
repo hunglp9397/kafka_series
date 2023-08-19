@@ -1,5 +1,7 @@
 
 # ----------KAFKA-----------
+
+## Phần 1 : Những kiến thức cơ bản
 - Là một hệ thống phân tán, kiến trúc có khả năng phục hồi, chịu lỗi 
 - Có thể scale tới 100 broker, hàng nghìn message trên giây
 - Hiệu năng cao, thời gian thực
@@ -186,18 +188,22 @@
 ![x1.jpg](imgs/x1.jpg)
 - Giả sử có thêm một Topic B có 2 partitions, Khi đó sẽ được phân bổ như sau:
   ![x2.jpg](imgs/x2.jpg) 
-- Tiếp tục có thêm một topic 
+- Tiếp tục có thêm một topic với số lượng partition lớn hơn số lượng broker:
+  ![x3.jpg](imgs/x3.jpg)
 
 ### 12. Topic Replication factor
-- Topic nên có số lần nhân bản > 1 (Thường là 2 hoặc 3)
-- Bằng cách này nếu broker bị down, 1 broker khác có thể xử lý data
-- Ví dụ như sau:
+- Đánh giá: Cách tổ chức broker và partition như trên vẫn chưa giải quyết được triệt để,
+- Do đó cần làm như sau: Tạo ra nhiều bản sao cho partition và lưu trên broker khác thông qua replication factor
+- Như hình sau: Nếu broker 102 gặp sự cố thì đã có backup từ Broker 101 và 103:
+
    + ![img_13.png](imgs/img_13.png)
    + ![img_14.png](imgs/img_14.png)
 
 - Leader for a Partition
   + Trong một thời điểm chỉ có 1 broker có thể làm leader cho 1 partition
-  + Mỗi một partition sẽ có 1 leander và nhiều replica
+  + Mỗi một partition sẽ có 1 leader và nhiều replica
+  + Các replication còn lại được gọi là ISR, đồng bộ message từ replication leader.
+  + Do vậy, mỗi partition có duy nhất một replication leader và một hoặc nhiều ISR - in-sync replica.
   + Producer chỉ có thể gửi data tới leader partition
   + ![img_15.png](imgs/img_15.png)
     + Ở hình trên thì:
@@ -246,7 +252,7 @@
     + Có thể nhanh chóng tắt và phục hồi
     
 
----------------- Advanced Concepts ---------------
+## Phần 2: Kiến thức nâng cao
 1. Kafka Segment và Index:
 - Kafka brokers chia partition thành các segments, Mỗi segment được chứa trong 1 vùng nhớ trong broker
 - Theo mặc định mỗi segment chứa 1 GB data và thời hạn là  1 tuần 								
