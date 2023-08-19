@@ -70,13 +70,16 @@
 ### 8. Kafka Producers
 
 -  Producers ghi data vào topics, Nó sẽ tự động  xác định partitions nào sẽ ghi data vào và sẽ tự recover nó
-    
+- Producer biết được message được ghi vào thành công partition bằng cơ chế ack
+  + _acks=0:_ giống fire-and-forget, gửi message mà không chờ phản hồi. Do vậy có thể dẫn đến tình huống mất message.
+  +  _acks=1:_ default setting. Lần này chắc chắn hơn, producer chờ cho tới khi nhận được phản hồi từ replication leader. Tuy nhiên chưa ngăn chặn hoàn toàn việc mất message. Replication leader write message thành công, báo lại cho producer, tuy nhiên broker có thể gặp sự cố với disk, không thể khôi phục data.
+  +  _acks=all:_ lần này thì quá chắc chắn, đảm bảo không mất message. Producer sẽ nhận được phản hồi khi tất cả replication leader và IRS write data thành công.
 -  Producers có thể lựa chọn gửi key cùng với message
          
      + Nếu key = null,
         + Message sẽ ko được Producer chỉ định 
         + Message được chia đều vào các partition trong Topics
-        + Và được chia đều theo thuaatj toán round-robin (p0 -> p1 -> p2 -> p0 -> p1 -> p2 -> ....)
+        + Và được chia đều theo thuật toán round-robin (p0 -> p1 -> p2 -> p0 -> p1 -> p2 -> ....)
      + Nếu  key != null, 
        + Tất cả các message mà có cùng key sẽ được gửi sẽ đến cùng một partitions
        + Do đó có thể dùng để xác định rõ muốn message nào sẽ gửi đến partition nào 
@@ -114,12 +117,13 @@
     
 ### 8. Kafka Consumer
 
-- Consumers đọc data từ topic(Nhớ là topic được xác định theo tên)
+- Consumers đọc data từ topic
 - Consumers có thể đọc 1 hoặc nhiều partitions tại một thời điểm, Dữ liệu được đọc phải theo thứ tự của mỗi partitions như hình dưới :
    + ![img_10.png](imgs/img_10.png)
 - Consumers sẽ đọc từ offset thấp đến offset cao, và ko thể đọc ngược lại
 - Nếu Consumers đọc từ nhiều partitions, Thứ thự tin nhắn sẽ ko được đảm bảo giữa nhiều partions, Tuy nhiên message được đọc vẫn theo thứ tự của từng partition
-- Consumers sẽ thực thi bằng cách request message từ Producer -> Do ó consumers có thể kiểm soát được tốc độ của topics mà nó consume đc
+- Consumers sẽ thực thi bằng cách request message từ Producer -> Do đó consumers có thể kiểm soát được tốc độ của topics mà nó consume đc
+- Một consumer cũng có thể đọc message từ một hoặc nhiều hoặc tất cả partition trong một topic.
 - Nhớ rằng Producers gửi message cho Consumers dạng message đã được mã hóa -> Để consumer đọc được thì lại cần giải mã message
 - Consumers Deserializer:
    + Deserialzier convert bytes thành objecst/data
@@ -131,26 +135,11 @@
 ### 9. Consumer Group
 - ![img_7.png](imgs/img_7.png)
 - Tất cả các consumer trong application mà read data được gọi là Consumer Group
-- Mỗi consumer trong Consumer Group có thể đọc nhiều partitions,
-- Tuy nhiên các consumer trong consumer group ko thể đọc các partitions của nhau
-
-    
-   - ````````
-        VD : 
-        Consumer 1 -> partition 0
-                    -> partition 1
-        Consumer 2  -> partition 2 
-                    -> partition 3
-        Consumer 3  -> partition 4
-                    -> partition 5
+- Một consumer có thể nhận message từ nhiều partition. Nhưng một partition không thể gửi message cho nhiều consumer trong cùng consumer group.
+  + ![x5.jpg](imgs/x5.jpg)
                
 - Nếu Có số lượng Consumer lớn hơn Số lượng Partitions -> Một số consumer sẽ k hoạt động
-     ``````
-   VD :  
-          Consumer 1 -> [Topic A][Partition 0]
-          COnsumer 2 -> [Topic A ][Partiion 1]
-          Consumer 3 -> [Topic A][Partition 2]
-          Consumer 4 (INACTIVE)
+    + ![x6.jpg](imgs/x6.jpg)
          
 - Kafka cho phép Consumer( Trong cùng một  Consumer Group) consume  cùng một topic/partitions 
     ````
@@ -166,8 +155,7 @@
 
 ### 10. Consumer Offsets
    - ![img_11.png](imgs/img_11.png)
-   -  Kafka lưu vị trí mà consumer group đang đọc
-   -  Một offset mà được commited trong Topic được đặt tên là __consumer_ofsets
+   -  Khi consumer xử lý xong message, chúng ta nên commit giá trị offset, các giá trị này sẽ lưu tại Kafka topic có tên là __consumer_offsets
    - Khi một consumer trong group xử li và đọc data từ Kafka., Nó sẽ được định kì commit offset( Kafka broker sẽ ghi vào __consumer_offset, k phải là consumer group)
    - Nếu một consumer chết, offset có thể back vị trí mà nó vừa rời đi để đến với consumer
    -  Theo mặc định, Java consumer sẽ mặc định commit offset(ít nhât 1 lần)
