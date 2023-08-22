@@ -119,3 +119,16 @@ Message to topic 2
 - Method commitTransaction() sẽ flust toàn bộ các message chưa được gửi đi, rồi sau đó mới commit transaction
 - Một producer có thể send nhiều message trên nhiều thread để tăng throughoutput và cũng có thể apply transaction trên các thread
 - Chỉ cần đảm bảo beginTransaction() trước khi tất cả cá thread sent message và commitTransaction() sau khi các thread thực hiện xong
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+## Phần 4: Ví dụ Consumer Validation
+#### 1. Yêu cầu:
+- Đầu vào là các hóa đơn, Producer sẽ produce message đến _**invoice-topic**_
+- COnsumer sẽ consume message từ _**invoice-topic**_
+- Nếu valid thì sẽ chuyển message tiếp đến **_valid-invoice-topic_**
+- Nếu ko valid thì sẽ chuyển messaage dến _**invalid-invoice-topic**_
+- ![3.png](imgs/3.png)
+#### 2. Source code: 
+**_Trong package : example_consume_validate_message_**
