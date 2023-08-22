@@ -64,4 +64,52 @@ hello world
 
 ## Phần 3: Producer transaction
 - Ý nghĩa của producer transaction : Cần gửi các message tới đến nhiều topic khác nhau và muốn tất cả gửi thành công, Nếu có bất kì lỗi nào thì sẽ ko có message nào gửi thành công
-- 
+
+ #### B1: Run 3 broker:
+```bash
+port 9092: kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server.properties
+
+port 9093: kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server-1.properties
+
+port 9094: kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server-2.properties
+```
+
+#### B2: Tạo  topics: 
+- Tạo topic transaction-topic-1:
+```bash
+ kafka-topics.sh --bootstrap-server localhost:9092, localhost:9093 --partitions 5 --replication-factor 3 --config min.insync.replicas=2 --topic transaction-topic-1 --create 
+```
+
+- Tạo topic transaction-topic-2:
+```bash
+ kafka-topics.sh --bootstrap-server localhost:9092, localhost:9093 --partitions 5 --replication-factor 3 --config min.insync.replicas=2 --topic transaction-topic-2 --create 
+```
+
+#### B3: Implement code
+ _ProducerTransactionViblo.java_
+ 
+
+#### B4: Tạo consume dể nhận message:
+```bash
+ kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning  --topic transaction-topic-1
+```
+
+```bash 
+
+ kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning  --topic transaction-topic-2
+```
+
+#### B5: Run file ProducerTransactionViblo.java để thực hiện bắn tin
+
+
+#### B6: Kết quả consume: 
+
+```bash
+hunglp@HungLP:~/kafka_2.13-3.0.0/bin$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic transaction-topic-1
+Message to topic 1
+```
+
+```bash
+hunglp@HungLP:~/kafka_2.13-3.0.0/bin$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic transaction-topic-1
+Message to topic 2
+```
