@@ -113,3 +113,9 @@ Message to topic 1
 hunglp@HungLP:~/kafka_2.13-3.0.0/bin$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic transaction-topic-1
 Message to topic 2
 ```
+
+#### B7: Chú ý về Producer transaction
+- Một producer instance không thể open nhiều transaction tại một thời điểm, Bắt buộc phải commit hoặc abort transaction cũ trước khi begin trasaction mới
+- Method commitTransaction() sẽ flust toàn bộ các message chưa được gửi đi, rồi sau đó mới commit transaction
+- Một producer có thể send nhiều message trên nhiều thread để tăng throughoutput và cũng có thể apply transaction trên các thread
+- Chỉ cần đảm bảo beginTransaction() trước khi tất cả cá thread sent message và commitTransaction() sau khi các thread thực hiện xong
