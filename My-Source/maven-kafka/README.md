@@ -132,3 +132,37 @@ Message to topic 2
 - ![3.png](imgs/3.png)
 #### 2. Source code: 
 **_Trong package : example_consume_validate_message_**
+
+### 3. Run kafka broker
+```bash
+port 9092: kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server.properties
+
+port 9093: kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server-1.properties 
+
+port 9094: kafka-server-start.sh ~/kafka_2.13-3.0.0/config/server-2.properties
+```
+
+### 4. Tạo topic
+```bash
+kafka-topics.sh --bootstrap-server localhost:9092,localhost:9093 --partitions 2 --replication-factor 3 --topic invoice-topic --create
+```
+
+
+#### 5. Chạy file Producer
+
+#### 6. Consume message từ command line:
+```bash
+hunglp@HungLP:~$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning  --topic invoice-topic
+{"invoiceNumber":"00797","storeId":"2","created":1692804028665,"totalAmount":0.0,"valid":true}
+{"invoiceNumber":"00963","storeId":"3","created":1692804028665,"totalAmount":0.0,"valid":true}
+{"invoiceNumber":"00161","storeId":"1","created":1692804028664,"totalAmount":0.0,"valid":false}
+{"invoiceNumber":"00565","storeId":"0","created":1692804028664,"totalAmount":0.0,"valid":true}
+{"invoiceNumber":"00815","storeId":"0","created":1692804028665,"totalAmount":0.0,"valid":true}
+{"invoiceNumber":"00964","storeId":"4","created":1692804028666,"totalAmount":0.0,"valid":false}
+{"invoiceNumber":"00786","storeId":"1","created":1692804028664,"totalAmount":0.0,"valid":true}
+{"invoiceNumber":"00162","storeId":"2","created":1692804028666,"totalAmount":0.0,"valid":false}
+{"invoiceNumber":"00550","storeId":"0","created":1692804028665,"totalAmount":0.0,"valid":true}
+```
+
+#### 7. Consume message từ file ConsumerWithValidate:
+- ![4.png](imgs/4.png)
