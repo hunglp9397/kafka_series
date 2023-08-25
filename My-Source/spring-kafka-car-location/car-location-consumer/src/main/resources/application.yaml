@@ -8,10 +8,6 @@ vehicles:
   url: ${CAR-POSITION-SERVER:http://localhost:3000}
 
 spring:
-  data:
-    mongodb:
-      database: car
-      uri: ${DATABASE_URI:mongodb://localhost:27017}
   kafka:
     template:
       default-topic: vehicle-position-events
