@@ -14,8 +14,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 @EnableKafka
 public class PaymentServiceApplication {
 
-	@Autowired
-	private OrderManageService orderManageService;
 
 	private static final Logger LOG = LoggerFactory.getLogger(PaymentServiceApplication.class);
 
@@ -23,12 +21,5 @@ public class PaymentServiceApplication {
 		SpringApplication.run(PaymentServiceApplication.class, args);
 	}
 
-	@KafkaListener(id = "orders", topics = "orders", groupId = "payment")
-	public void onEvent(Order o) {
-		LOG.info("Received: {}" , o);
-		if (o.getStatus().equals("NEW"))
-			orderManageService.reserve(o);
-		else
-			orderManageService.confirm(o);
-	}
+
 }

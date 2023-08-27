@@ -26,7 +26,7 @@ public class OrderInitService {
             int x = RAND.nextInt(5) + 1;
             Order o = new Order(id.incrementAndGet(), RAND.nextLong() + 1, RAND.nextLong() + 1, 1, 100);
             o.setPrice(100 * x);
-            o.setProductCount(x);
+            o.setProductQuantity(x);
             template.send("orders", o.getId(), o);
         }
     }

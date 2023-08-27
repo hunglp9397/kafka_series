@@ -2,14 +2,16 @@ package com.hunglp.orderservice.service;
 
 
 import com.hunglp.orderservice.model.Order;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderManageService {
     public Order confirm(Order orderPayment, Order orderStock) {
         Order o = new Order
                 (orderPayment.getId(),
                         orderPayment.getCustomerId(),
                         orderPayment.getProductId(),
-                        orderPayment.getProductCount(),
+                        orderPayment.getProductQuantity(),
                         orderPayment.getPrice());
 
         if (orderPayment.getStatus().equals("ACCEPT") && orderStock.getStatus().equals("ACCEPT")) {

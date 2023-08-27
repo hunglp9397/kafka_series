@@ -1,18 +1,16 @@
-spring:
-  application:
-    name: order-service
+
+
 server:
   port: 8082
 
-spring.kafka:
-  #  bootstrap-servers: 127.0.0.1:56820
-  consumer:
-    key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
-    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-    properties:
-      spring.json.trusted.packages: "*"
-  producer:
-    key-serializer: org.apache.kafka.common.serialization.LongSerializer
-    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
-spring.output.ansi.enabled: ALWAYS
+
+spring:
+  application:
+    name: order-service
+  kafka:
+    backoff.max_failure: 5
+    backoff.interval: 9000
+    bootstrap-servers: localhost:9092
+
+

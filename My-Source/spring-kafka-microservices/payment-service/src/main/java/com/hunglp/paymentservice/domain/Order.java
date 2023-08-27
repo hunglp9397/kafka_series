@@ -11,7 +11,7 @@ public class Order {
 
     private Long productId;
 
-    private int productCount;
+    private int productQuantity;
 
     private int price;
 
@@ -19,12 +19,5 @@ public class Order {
 
     private String source;
 
-    public Order(Long id, Long customerId, Long productId, int productCount, int price) {
-        this.id = id;
-        this.customerId = customerId;
-        this.productId = productId;
-        this.productCount = productCount;
-        this.price = price;
-        this.status = "NEW";
-    }
+
 }

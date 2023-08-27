@@ -19,8 +19,9 @@ public class AppConfig {
         LOG.info("Created topic : orders");
         return TopicBuilder.name("orders")
                 .partitions(3)
-                .compact()
                 .build();
+
+
     }
 
     @Bean

@@ -1,12 +1,22 @@
+
+server:
+  port: 8080
+
+
+
 spring:
   application:
     name: order-service
-server:
-  port: 8080
-spring.kafka:
-  bootstrap-servers: localhost:9092
-  producer:
-    key-serializer: org.apache.kafka.common.serialization.LongSerializer
-    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+            add:
+              type:
+                headers: 'false'
+
 
 spring.output.ansi.enabled: ALWAYS

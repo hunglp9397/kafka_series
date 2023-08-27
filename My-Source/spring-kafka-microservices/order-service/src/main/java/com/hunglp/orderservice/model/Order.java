@@ -12,7 +12,7 @@ public class Order {
 
     private Long productId;
 
-    private int productCount;
+    private int productQuantity;
 
     private int price;
 
@@ -20,12 +20,14 @@ public class Order {
 
     private String source;
 
-    public Order(Long id, Long customerId, Long productId, int productCount, int price) {
+    public Order(Long id, Long customerId, Long productId, int productQuantity, int price) {
         this.id = id;
         this.customerId = customerId;
         this.productId = productId;
-        this.productCount = productCount;
+        this.productQuantity = productQuantity;
         this.price = price;
         this.status = "NEW";
     }
+
+
 }
