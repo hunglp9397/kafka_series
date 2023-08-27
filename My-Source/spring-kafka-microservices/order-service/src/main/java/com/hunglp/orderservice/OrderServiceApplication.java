@@ -8,7 +8,6 @@ import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-@EnableKafkaStreams
 @EnableAsync
 public class OrderServiceApplication {
 
@@ -17,8 +16,7 @@ public class OrderServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderServiceApplication.class, args);
-
-		LOG.info("Hello : {}", 1);
+		LOG.info("App started!");
 	}
 
 }

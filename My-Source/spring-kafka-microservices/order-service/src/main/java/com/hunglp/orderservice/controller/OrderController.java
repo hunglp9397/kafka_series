@@ -23,11 +23,8 @@ public class OrderController {
     @PostMapping
     public Order create(@RequestBody Order order) {
         order.setId(id.incrementAndGet());
-        kafkaTemplate.send("orders", order.getId(), order);
+        kafkaTemplate.send("order-topic", order.getId(), order);
         LOG.info("Sent: {}", order);
         return order;
     }
-
-
-
 }
