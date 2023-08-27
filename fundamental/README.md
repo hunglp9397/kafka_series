@@ -70,6 +70,19 @@
 ### 8. Kafka Producers
 
 -  Producers ghi data vào topics, Nó sẽ tự động  xác định partitions nào sẽ ghi data vào và sẽ tự recover nó
+- **Có 3 phương thức để gửi message:**
+  + _Fire and forget_ : Gửi message mà không cần quan tâm Consumer có nhận được hay không
+  ```bash
+    ProducerRecord<String, String> record = new ProducerRecord<>("CustomerCountry", "Precision Products","France");
+    try {
+      producer.send(record);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+   ```
+  Trong đoạn code trên thì method send() trả về một Future Object cùng với RecordMetadata, Nhưng ở đây đơn giản là bỏ qua giá trị trả về, Do ậy không có cách nào để biết là message đã được gửi thành công hay cha
+
+  + 
 - Producer biết được message được ghi vào thành công partition bằng cơ chế ack
   + _acks=0:_ giống fire-and-forget, gửi message mà không chờ phản hồi. Do vậy có thể dẫn đến tình huống mất message.
   +  _acks=1:_ default setting. Lần này chắc chắn hơn, producer chờ cho tới khi nhận được phản hồi từ replication leader. Tuy nhiên chưa ngăn chặn hoàn toàn việc mất message. Replication leader write message thành công, báo lại cho producer, tuy nhiên broker có thể gặp sự cố với disk, không thể khôi phục data.
