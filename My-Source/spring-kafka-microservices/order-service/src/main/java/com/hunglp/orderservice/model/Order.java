@@ -19,4 +19,13 @@ public class Order {
     private String status;
 
     private String source;
+
+    public Order(Long id, Long customerId, Long productId, int productCount, int price) {
+        this.id = id;
+        this.customerId = customerId;
+        this.productId = productId;
+        this.productCount = productCount;
+        this.price = price;
+        this.status = "NEW";
+    }
 }
