@@ -14,9 +14,21 @@ public class OrderConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(OrderConsumer.class);
 
+    private final OrderManageService orderManageService;
+
+
+    public OrderConsumer(OrderManageService orderManageService) {
+        this.orderManageService = orderManageService;
+    }
+
     @KafkaListener(topics = "orders", containerFactory="OrderContainerFactory")
     public void orderListener(@Payload Order order, Acknowledgment ack) {
         log.info("Consumer : received order {} ", order);
         ack.acknowledge();
+        if(order.getStatus().equals("NEW")) {
+            this.orderManageService.reserve(order);
+        } else {
+            this.orderManageService.confirm(order);
+        }
     }
 }

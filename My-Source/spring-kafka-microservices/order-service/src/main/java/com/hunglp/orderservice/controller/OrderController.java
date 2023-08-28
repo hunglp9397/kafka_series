@@ -38,6 +38,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody Order order) throws ExecutionException, InterruptedException {
+        order.setId(id.incrementAndGet());
         orderProducer.sendOrderEvent(order);
         return new ResponseEntity<>(HttpStatus.OK);
     }

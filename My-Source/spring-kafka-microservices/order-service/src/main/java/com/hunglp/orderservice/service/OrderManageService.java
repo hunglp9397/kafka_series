@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 public class OrderManageService {
     public Order confirm(Order orderPayment, Order orderStock) {
         Order o = new Order
-                (orderPayment.getId(),
-                        orderPayment.getCustomerId(),
-                        orderPayment.getProductId(),
-                        orderPayment.getProductQuantity(),
-                        orderPayment.getPrice());
+            (orderPayment.getId(),
+            orderPayment.getCustomerId(),
+            orderPayment.getProductId(),
+            orderPayment.getProductQuantity(),
+            orderPayment.getPrice());
 
         if (orderPayment.getStatus().equals("ACCEPT") && orderStock.getStatus().equals("ACCEPT")) {
             o.setStatus("CONFIRMED");

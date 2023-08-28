@@ -6,11 +6,19 @@ server:
 
 
 spring:
+  # App
   application:
     name: order-service
+  # Kafka
   kafka:
     backoff.max_failure: 5
     backoff.interval: 9000
     bootstrap-servers: localhost:9092
+  # Database
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/db_spring_microservice_kafka?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    password: '123456789'
+
 
 
