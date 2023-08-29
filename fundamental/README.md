@@ -81,6 +81,33 @@
     }
    ```
   Trong đoạn code trên thì method send() trả về một Future Object cùng với RecordMetadata, Nhưng ở đây đơn giản là bỏ qua giá trị trả về, Do ậy không có cách nào để biết là message đã được gửi thành công hay cha
+  + _Synchronous send_ : Gửi message trả về Future Object, Sử dụng hàm get()  để đợi Future thì sẽ biết được hàm send() gửi thành công hay không
+  ```bash
+          ProducerRecord<String, String> record =new ProducerRecord<>("CustomerCountry", "Precision Products", "France");
+          try {
+               producer.send(record).get();
+          } catch (Exception e) {
+              e.printStackTrace();       
+          }
+  ```
+  + _Asynchronous send__: Gọi hàm send() cùng với callback() function,Hàm callback sẽ được trigger khi nhận phản hồi từ Kafka broker
+  ```bash
+    private class DemoProducerCallback implements Callback {
+
+@Override
+public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+if (e != null) {
+e.printStackTrace();
+}
+}
+}
+ProducerRecord<String, String> record =
+new ProducerRecord<>("CustomerCountry", "Biomedical Materials", "USA");
+
+
+producer.send(record, new DemoProducerCallback());
+  ```
+  
 
   + 
 - Producer biết được message được ghi vào thành công partition bằng cơ chế ack
