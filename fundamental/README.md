@@ -106,10 +106,10 @@
   producer.send(record, new DemoProducerCallback());
   ```
   + Ví dụ sử dụng Asynchronous send: 
-    + 
+    + Ta cần biết khi nào gửi message fail và có thể throw exception, log error, hoặc là ghi vào files
 
 -
-#### 8.3 Producer biết được message được ghi vào thành công partition bằng cơ chế ack
+#### 8.3 Producer biết được message được ghi vào thành công partition nào  bằng cơ chế ack
   + _acks=0:_ giống fire-and-forget, gửi message mà không chờ phản hồi. Do vậy có thể dẫn đến tình huống mất message.
   +  _acks=1:_ default setting. Lần này chắc chắn hơn, producer chờ cho tới khi nhận được phản hồi từ replication leader. Tuy nhiên chưa ngăn chặn hoàn toàn việc mất message. Replication leader write message thành công, báo lại cho producer, tuy nhiên broker có thể gặp sự cố với disk, không thể khôi phục data.
   +  _acks=all:_ lần này thì quá chắc chắn, đảm bảo không mất message. Producer sẽ nhận được phản hồi khi tất cả replication leader và IRS write data thành công.
