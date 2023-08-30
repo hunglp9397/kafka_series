@@ -80,8 +80,9 @@
       e.printStackTrace();
     }
    ```
-  Trong đoạn code trên thì method send() trả về một Future Object cùng với RecordMetadata, Nhưng ở đây đơn giản là bỏ qua giá trị trả về, Do ậy không có cách nào để biết là message đã được gửi thành công hay cha
-- _Synchronous send_ : Gửi message trả về Future Object, Sử dụng hàm get()  để đợi Future thì sẽ biết được hàm send() gửi thành công hay không
+  Trong đoạn code trên thì method send() trả về một Future Object cùng với RecordMetadata,
+
+- _Synchronous send_ :
   ```bash
      RecordMetadata metadata;
         for (int i = 1; i <= numEvents; i++) {
@@ -90,8 +91,10 @@
               + " and timestamp on " + new Timestamp(metadata.timestamp()));
      }
   ```
+  Với việc gửi đồng bộ, thì thread sẽ mất thời gian chờ đợi tin đuược gửi xong mà ko làm gì -> Điều này làm ảnh hưởng đến hiệu suất của chương trình
+
   Trong đoạn code trên thì nếu send() mà ko lỗi thì sẽ trả về RecordMetaData để có thể biết được offset nào đã được message ghi vào 
-  - _Asynchronous send__: Gọi hàm send() cùng với callback() function,Hàm callback sẽ được trigger khi nhận phản hồi từ Kafka broker
+  - _Asynchronous send__: Cách này được sử dụng nhiều nhất,Gọi hàm send() cùng với callback() function,Hàm callback sẽ được trigger khi nhận phản hồi từ Kafka broker
   ```bash
     private class DemoProducerCallback implements Callback {
         @Override
@@ -105,8 +108,7 @@
   ProducerRecord<String, String> record =  new ProducerRecord<>("CustomerCountry", "Biomedical Materials", "USA");
   producer.send(record, new DemoProducerCallback());
   ```
-  + Ví dụ sử dụng Asynchronous send: 
-    + Ta cần biết khi nào gửi message fail và có thể throw exception, log error, hoặc là ghi vào files
+  Lợi ích thực tế của việc gửi bất đồng bộ này là: Cùng với callBack, Ta có thể xử lí trờng hợp gửi message thất bại như là throw exception, log exception, hoặc ghi log lỗi vào file
 
 -
 #### 8.3 Producer biết được message được ghi vào thành công partition nào  bằng cơ chế ack
