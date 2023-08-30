@@ -83,12 +83,12 @@
   Trong đoạn code trên thì method send() trả về một Future Object cùng với RecordMetadata, Nhưng ở đây đơn giản là bỏ qua giá trị trả về, Do ậy không có cách nào để biết là message đã được gửi thành công hay cha
 - _Synchronous send_ : Gửi message trả về Future Object, Sử dụng hàm get()  để đợi Future thì sẽ biết được hàm send() gửi thành công hay không
   ```bash
-          ProducerRecord<String, String> record =new ProducerRecord<>("CustomerCountry", "Precision Products", "France");
-          try {
-               producer.send(record).get();
-          } catch (Exception e) {
-              e.printStackTrace();       
-          }
+     RecordMetadata metadata;
+        for (int i = 1; i <= numEvents; i++) {
+            metadata = producer.send(new ProducerRecord<>(topicName, i, "Simple Message-" + i)).get();
+             logger.info("Message " + i + " persisted with offset " + metadata.offset()
+              + " and timestamp on " + new Timestamp(metadata.timestamp()));
+     }
   ```
   Trong đoạn code trên thì nếu send() mà ko lỗi thì sẽ trả về RecordMetaData để có thể biết được offset nào đã được message ghi vào 
   - _Asynchronous send__: Gọi hàm send() cùng với callback() function,Hàm callback sẽ được trigger khi nhận phản hồi từ Kafka broker
