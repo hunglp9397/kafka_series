@@ -27,8 +27,9 @@ kafka-console-producer.sh --bootstrap-server localhost:9092 --topic sentences
 ```
 
 ### 4. Consumer message
-(ko cần tạo thủ công bằng tay topic word-count do code đã làm rồi)
-Consume message topic "word-count"
+
+- Consume message topic "word-count"
+- Lưu ý : ko cần tạo thủ công bằng tay topic word-count do code đã làm rồi
 
 ```bash
 kafka-console-consumer.sh --topic word-count --bootstrap-server localhost:9092 --from-beginning --property print.key=true --property key.separator=" : " --key-deserializer "org.apache.kafka.common.serialization.StringDeserializer" --value-deserializer "org.apache.kafka.common.serialization.LongDeserializer"
