@@ -6,18 +6,18 @@
 - Có thể scale tới 100 broker, hàng nghìn message trên giây
 - Hiệu năng cao, thời gian thực
 - Kafka đóng vai trò communicate giữa các hệ thống
-![img_1.png](imgs/img_1.png)
+![img_1.png](img_readme/img_1.png)
 
 
 
 ### 1. Cấu trúc của Apache Kafka:
    - Cấu trúc đơn giản
-     + ![img_2.png](imgs/img_2.png)
+     + ![img_2.png](img_readme/img_2.png)
    - Cấu trúc chi tiết:
-     + ![img_3.png](imgs/img_3.png)
+     + ![img_3.png](img_readme/img_3.png)
    
 ### 2. Kafka Broker Cluster
-- ![img_4.png](imgs/img_4.png)
+- ![img_4.png](img_readme/img_4.png)
 - Một máy có thể chạy nhiều server kafka
 - Mỗi một server đó gọi là broker
 - Nếu Tất cả các broker (server kafka) đều trỏ chung tới 1 zookeeper thì được gọi là Kafka Clusters
@@ -26,7 +26,7 @@
  - Kiểm soát trạng thái của cluster (brokers, topics, users, …)
    
 ### 4. Kafka Broker 
-- ![img_5.png](imgs/img_5.png)
+- ![img_5.png](img_readme/img_5.png)
 - Xử lý tất cả các yêu cầu từ client (produce, consume, metadata) và giữ dữ liệu được sao chép trong cụm. 
 - Có thể có một hoặc nhiều broker trong một Cluster (Vừa đề cập ở mục 2).
 
@@ -42,7 +42,7 @@
 
 ### 6. Kafka partitions
 
-- ![img_6.png](imgs/img_6.png)
+- ![img_6.png](img_readme/img_6.png)
 - Topics được chia thành nhiều partitions
 - Trên mỗi dải partitions có nhiều id (gọi là offsets)
 => Một khi data được ghi vào partitions, nó không thể bị thay đổi tức là  Không thể xóa data trong KAFKA
@@ -124,12 +124,12 @@
      + Nếu  key != null, 
        + Tất cả các message mà có cùng key sẽ được gửi sẽ đến cùng một partitions
        + Do đó có thể dùng để xác định rõ muốn message nào sẽ gửi đến partition nào 
-       + ![img_8.png](imgs/img_8.png)
+       + ![img_8.png](img_readme/img_8.png)
 
 ### 9. Kafka message
 
 - Cấu tạo : 
-    + ![img_9.png](imgs/img_9.png)
+    + ![img_9.png](img_readme/img_9.png)
     + Key - binary (có thể null)
     + Value - binary ( có thể null)
     + CompressType (none, gzip, snappy, lz4, zstd)
@@ -160,7 +160,7 @@
 
 - Consumers đọc data từ topic
 - Consumers có thể đọc 1 hoặc nhiều partitions tại một thời điểm, Dữ liệu được đọc phải theo thứ tự của mỗi partitions như hình dưới :
-   + ![img_10.png](imgs/img_10.png)
+   + ![img_10.png](img_readme/img_10.png)
 - Consumers sẽ đọc từ offset thấp đến offset cao, và ko thể đọc ngược lại
 - Nếu Consumers đọc từ nhiều partitions, Thứ thự tin nhắn sẽ ko được đảm bảo giữa nhiều partions, Tuy nhiên message được đọc vẫn theo thứ tự của từng partition
 - Consumers sẽ thực thi bằng cách request message từ Producer -> Do đó consumers có thể kiểm soát được tốc độ của topics mà nó consume đc
@@ -174,13 +174,13 @@
 
 
 ### 9. Consumer Group
-- ![img_7.png](imgs/img_7.png)
+- ![img_7.png](img_readme/img_7.png)
 - Tất cả các consumer trong application mà read data được gọi là Consumer Group
 - Một consumer có thể nhận message từ nhiều partition. Nhưng một partition không thể gửi message cho nhiều consumer trong cùng consumer group.
-  + ![x5.jpg](imgs/x5.jpg)
+  + ![x5.jpg](img_readme/x5.jpg)
                
 - Nếu Có số lượng Consumer lớn hơn Số lượng Partitions -> Một số consumer sẽ k hoạt động
-    + ![x6.jpg](imgs/x6.jpg)
+    + ![x6.jpg](img_readme/x6.jpg)
          
 - Kafka cho phép Consumer( Trong cùng một  Consumer Group) consume  cùng một topic/partitions 
     ````
@@ -195,7 +195,7 @@
             Consumer 3 -> [Topic A][Partition 2]
 
 ### 10. Consumer Offsets
-   - ![img_11.png](imgs/img_11.png)
+   - ![img_11.png](img_readme/img_11.png)
    -  Khi consumer xử lý xong message, chúng ta nên commit giá trị offset, các giá trị này sẽ lưu tại Kafka topic có tên là __consumer_offsets
    - Khi một consumer trong group xử li và đọc data từ Kafka., Nó sẽ được định kì commit offset( Kafka broker sẽ ghi vào __consumer_offset, k phải là consumer group)
    - Nếu một consumer chết, offset có thể back vị trí mà nó vừa rời đi để đến với consumer
@@ -214,19 +214,19 @@
 -  Mỗi kafka broker còn được gọi là bootstrap server, -> nghĩa là chỉ cần connect tới 1 broker là ok
 
 - Ví dụ trong trường hợp sau có 3 broker, Topic A có 3 partition, Để đảm bảo high reliable, Kafka tự động phân tán các partition trên tất cả broker đang có. Mỗi partition nằm trên một broker
-![x1.jpg](imgs/x1.jpg)
+![x1.jpg](img_readme/x1.jpg)
 - Giả sử có thêm một Topic B có 2 partitions, Khi đó sẽ được phân bổ như sau:
-  ![x2.jpg](imgs/x2.jpg) 
+  ![x2.jpg](img_readme/x2.jpg) 
 - Tiếp tục có thêm một topic với số lượng partition lớn hơn số lượng broker:
-  ![x3.jpg](imgs/x3.jpg)
+  ![x3.jpg](img_readme/x3.jpg)
 
 ### 12. Topic Replication factor
 - Đánh giá: Cách tổ chức broker và partition như trên vẫn chưa giải quyết được triệt để,
 - Do đó cần làm như sau: Tạo ra nhiều bản sao cho partition và lưu trên broker khác thông qua replication factor
 - Như hình sau: Nếu broker 102 gặp sự cố thì đã có backup từ Broker 101 và 103:
 
-   + ![img_13.png](imgs/img_13.png)
-   + ![img_14.png](imgs/img_14.png)
+   + ![img_13.png](img_readme/img_13.png)
+   + ![img_14.png](img_readme/img_14.png)
 
 - Leader for a Partition
   + Trong một thời điểm chỉ có 1 broker có thể làm leader cho 1 partition
@@ -234,7 +234,7 @@
   + Các replication còn lại được gọi là ISR, đồng bộ message từ replication leader.
   + Do vậy, mỗi partition có duy nhất một replication leader và một hoặc nhiều ISR - in-sync replica.
   + Producer chỉ có thể gửi data tới leader partition
-  + ![img_15.png](imgs/img_15.png)
+  + ![img_15.png](img_readme/img_15.png)
     + Ở hình trên thì:
     + Broker 101 là Leader của partition 0
     + Brokder 102 là Leader của partition 1
@@ -282,7 +282,7 @@
     
 
 ## Phần 2: Kiến thức nâng cao
-1. Kafka Segment và Index:
+### 1. Kafka Segment và Index:
 - Kafka brokers chia partition thành các segments, Mỗi segment được chứa trong 1 vùng nhớ trong broker
 - Theo mặc định mỗi segment chứa 1 GB data và thời hạn là  1 tuần 								
 - Khi một kafka broker nhận được dữ liệu cho cho một partition, Khi dl nhiều tới mức vượt quá giớ hạt của segment, nó sẽ đóng file và ghi vào một segment mới								
@@ -291,4 +291,11 @@
 
 
 ### Phần 3 : Kafka Stream:
+### 1. Khác nhau giữa consumer API và StreamData
 
+- Consumer API:
+   ![img_1.png](img_readme/img_1.png)
+
+
+- Kafka Stream API:
+  ![img_2.png](img_readme/img_2.png)
