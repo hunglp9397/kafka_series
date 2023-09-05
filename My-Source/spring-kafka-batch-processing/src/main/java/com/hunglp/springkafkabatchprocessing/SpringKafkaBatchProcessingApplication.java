@@ -20,11 +20,8 @@ public class SpringKafkaBatchProcessingApplication implements CommandLineRunner{
 		SpringApplication.run(SpringKafkaBatchProcessingApplication.class, args);
 	}
 
-
 	@Autowired
 	private Sender sender;
-
-
 
 	@Override
 	public void run(String... strings)  {
@@ -32,10 +29,5 @@ public class SpringKafkaBatchProcessingApplication implements CommandLineRunner{
 		for (int i = 0; i < numberOfMessages; i++) {
 			sender.send("simple-batch", "message " + i);
 		}
-
-
-
-
-
 	}
 }

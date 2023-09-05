@@ -24,3 +24,15 @@
 
 
 ## Phần 2: Thực hành
+
+### 1. Tạo topic
+```bash
+   kafka-topics.sh --bootstrap-server localhost:9092 --topic simple-batch --create --partitions 3 --replication-factor 1
+```
+### 2. Chạy file Application
+- Ở đây đang setting đọc 10 messsage mõi batch:
+```bash 
+props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "10");
+```
+Kết quả:
+![img.png](img.png)
