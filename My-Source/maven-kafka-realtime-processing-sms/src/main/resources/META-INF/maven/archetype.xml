@@ -1,0 +1,9 @@
+<archetype>
+  <id>maven-kafka-realtime-processing-sms</id>
+  <sources>
+    <source>src/main/java/RealtimeProcessingApp.java</source>
+  </sources>
+  <testSources>
+    <source>src/test/java/AppTest.java</source>
+  </testSources>
+</archetype>
