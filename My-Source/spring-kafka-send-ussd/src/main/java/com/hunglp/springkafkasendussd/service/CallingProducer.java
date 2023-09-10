@@ -22,7 +22,7 @@ public class CallingProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void call(CallingInfo callingInfo) throws ExecutionException, InterruptedException {
+    public void produceCallInfo(CallingInfo callingInfo) throws ExecutionException, InterruptedException {
         SendResult<String, CallingInfo> sendResult = kafkaTemplate.send("call-info", callingInfo).get();
         log.info("Send Calling-Info : {} via Kafka", callingInfo);
         log.info(sendResult.toString());

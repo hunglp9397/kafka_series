@@ -15,7 +15,7 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
 
-    @Value("${spring.kafka.bootstrap-servers")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
     @Bean
@@ -24,7 +24,7 @@ public class KafkaProducerConfig {
         config.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         config.put(org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        config.put(JsonSerializer.TYPE_MAPPINGS, "order:com.hunglp.springkafkasendussd.model.SmsInfo");
+        config.put(JsonSerializer.TYPE_MAPPINGS, "call-info:com.hunglp.springkafkasendussd.model.CallingInfo");
         config.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, "20971520");
         return new DefaultKafkaProducerFactory(config);
     }

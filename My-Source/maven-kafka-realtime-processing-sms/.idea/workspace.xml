@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e15e397a-a3a3-408f-8993-5907ae16a5c9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hunglp/config/CallConsumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-kafka-send-ussd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-kafka-send-ussd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/java/com/hunglp/springkafkasendussd/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/java/com/hunglp/springkafkasendussd/config/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/java/com/hunglp/springkafkasendussd/controller/CallingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/java/com/hunglp/springkafkasendussd/controller/CallingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/java/com/hunglp/springkafkasendussd/service/CallingProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/java/com/hunglp/springkafkasendussd/service/CallingProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-kafka-send-ussd/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.17549407",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settings.project.maven.runner"
