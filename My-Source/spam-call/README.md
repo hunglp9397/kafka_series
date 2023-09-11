@@ -23,5 +23,18 @@
 ------------------------------------------------------------------------------------------------------------------------
 ## Phần 2 : Implement
 
+### 1. Tạo topic "call-info" (dùng để giả lập bắn 100 cuộc gọi)
 
+```bash
+   kafka-topics.sh --bootstrap-server localhost:9092 --topic sentences --create --partitions 3 --replication-factor 1
+```
 
+### 2. Giả lập 100 cuộc gọi:
+- Run project "spring-kafka-send-ussd"
+- Gọi POSTMAN API:![1.png](IMG_GUIDE/1.png)
+- Kết quả:
+![2.png](IMG_GUIDE/2.png)
+### 3. Consume Thông tin 100 cuộc gọi 
+- RUn project "realtime-processing-sms"
+- Kết quả:
+- ![3.png](IMG_GUIDE/3.png)
