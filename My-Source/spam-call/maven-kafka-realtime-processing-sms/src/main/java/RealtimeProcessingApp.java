@@ -1,4 +1,4 @@
-import com.hunglp.config.CallConsumer;
+import com.hunglp.config.consumer.CallConsumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

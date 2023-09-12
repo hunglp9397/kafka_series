@@ -32,7 +32,7 @@ public class CallingController {
     @PostMapping
     public List<CallingInfo> createCalling() {
         List<CallingInfo> callInfoList = new ArrayList<>();
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 1; i++){
             CallingInfo callingInfo = new CallingInfo();
             callingInfo.setId(i);
             callingInfo.setCaller(CommonUtil.generateRandomPhone());

@@ -26,7 +26,7 @@
 ### 1. Tạo topic "call-info" (dùng để giả lập bắn 100 cuộc gọi)
 
 ```bash
-   kafka-topics.sh --bootstrap-server localhost:9092 --topic sentences --create --partitions 3 --replication-factor 1
+   kafka-topics.sh --bootstrap-server localhost:9092 --topic call-info --create --partitions 3 --replication-factor 1
 ```
 
 ### 2. Giả lập 100 cuộc gọi:
@@ -38,3 +38,13 @@
 - RUn project "realtime-processing-sms"
 - Kết quả:
 - ![3.png](IMG_GUIDE/3.png)
+- 
+### 4. Tạo topic "ussd-survey" (Dùng để bắn tin khảo sát)
+```bash
+  kafka-topics.sh --bootstrap-server localhost:9092 --topic ussd-survey --create --partitions 3 --replication-factor 1
+```
+### 5. Produce message "ussd-survey"
+- Code như hình:
+- ![4.png](IMG_GUIDE/4.png)
+- Kết quả: 
+- ![5.png](IMG_GUIDE/5.png)
