@@ -32,7 +32,7 @@ public class CallingController {
     @PostMapping
     public List<CallingInfo> createCalling() {
         List<CallingInfo> callInfoList = new ArrayList<>();
-        for(int i = 0; i < 1; i++){
+        for(int i = 0; i < 100; i++){
             CallingInfo callingInfo = new CallingInfo();
             callingInfo.setId(i);
             callingInfo.setCaller(CommonUtil.generateRandomPhone());
@@ -45,6 +45,7 @@ public class CallingController {
         callInfoList.forEach(callInfo -> {
             try {
                 callingProducer.produceCallInfo(callInfo);
+                Thread.sleep(5000);
             } catch (ExecutionException e) {
                 LOG.error("Error white create calling, Exception: {}", e.getMessage());
                 throw new RuntimeException(e);

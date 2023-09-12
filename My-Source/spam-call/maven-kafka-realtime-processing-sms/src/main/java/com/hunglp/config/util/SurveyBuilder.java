@@ -3,11 +3,11 @@ package com.hunglp.config.util;
 import com.hunglp.config.model.CallingInfo;
 import com.hunglp.config.model.UssdSurvey;
 
+import java.util.Random;
+
 public class SurveyBuilder {
 
-    public static String buildContentSendSurvey(String caller){
-        return "Thuê bao " + caller + " Có phải thuê bao làm phiền quý khách không?";
-    }
+
 
     public static UssdSurvey generateSurvey(Integer id, CallingInfo callingInfo){
         UssdSurvey ussdSurvey = new UssdSurvey();
@@ -15,7 +15,21 @@ public class SurveyBuilder {
         ussdSurvey.setCaller(callingInfo.getCaller());
         ussdSurvey.setCalled(callingInfo.getCalled());
         ussdSurvey.setContent("Thuê bao " + callingInfo.getCaller() + " Có phải thuê bao làm phiền quý khách không?");
-        ussdSurvey.setResultCode(null);
+
+        int min=-1;
+        int max=1;
+        Random random=new Random();
+        int randomResponseCode=random.nextInt(max-min)+min;
+        ussdSurvey.setResultCode(randomResponseCode);
         return ussdSurvey;
     }
+
+    public static void main(String[] args) {
+        int min=-1;
+        int max=1;
+        Random random=new Random();
+        int randomResponseCode=random.nextInt(max - min + 1) + min;
+        System.out.println(randomResponseCode);
+    }
+
 }

@@ -43,25 +43,19 @@ public class CallConsumer {
         consumer.subscribe(Arrays.asList("call-info"));
 
 
-        List<UssdSurvey> ussdSurveyList = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, CallingInfo> records = consumer.poll(Duration.ofMillis(200));
 
             AtomicInteger i = new AtomicInteger();
-
             records.forEach(record ->{
                 log.info(record.value());
                 CallingInfo callingInfo = record.value();
                 UssdSurvey ussdSurvey = SurveyBuilder.generateSurvey(i.get(), callingInfo);
                 i.getAndIncrement();
-                ussdSurveyList.add(ussdSurvey);
+                UssdSurveyProducer.produceUssdSurvey(ussdSurvey);
             });
 
-            UssdSurveyProducer.produceUssdSurvey(ussdSurveyList);
-
         }
-
-
     }
 
 

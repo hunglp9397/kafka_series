@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
@@ -21,6 +22,8 @@ public class CallingProducer {
     public CallingProducer(KafkaTemplate<String, CallingInfo> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
+
+
 
     public void produceCallInfo(CallingInfo callingInfo) throws ExecutionException, InterruptedException {
         SendResult<String, CallingInfo> sendResult = kafkaTemplate.send("call-info", callingInfo).get();

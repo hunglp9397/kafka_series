@@ -20,24 +20,52 @@ public class UssdSurveyProducer {
 
     private static final Logger log = LogManager.getLogger(UssdSurveyProducer.class);
 
-    public static void produceUssdSurvey(List<UssdSurvey> ussdSurveyList){
+    private static KafkaProducer<Integer, UssdSurvey> producer;
 
+    static {
         Properties props = new Properties();
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "realtime");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
-        KafkaProducer<Integer, UssdSurvey> producer = new KafkaProducer<>(props);
+        producer = new KafkaProducer<>(props);
+    }
+
+
+    public static void produceUssdSurvey(UssdSurvey ussdSurvey){
+
+        ProducerRecord<Integer, UssdSurvey> record= new ProducerRecord<>("ussd-survey", ussdSurvey);
+        try {
+            RecordMetadata recordMetadata = producer.send(record).get();
+
+            String message = String.format("sent message to topic:%s partition:%s  offset:%s",
+                    recordMetadata.topic(), recordMetadata.partition(), recordMetadata.offset());
+
+            log.info(message);
+
+        } catch (InterruptedException e) {
+            log.error("Error white produce message to kafka! Exception: " + e.getMessage());
+        } catch (ExecutionException e) {
+            log.error("Error white produce message to kafka! Exception: " + e.getMessage());
+        }
+    }
+    public static void produceListUssdSurvey(List<UssdSurvey> ussdSurveyList){
+
+//        Properties props = new Properties();
+//        props.put(ProducerConfig.CLIENT_ID_CONFIG, "realtime");
+//        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+//        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+//        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+//
+//        KafkaProducer<Integer, UssdSurvey> producer = new KafkaProducer<>(props);
 
 
 
         for(int i = 0; i < ussdSurveyList.size(); i++) {
 
-            ProducerRecord<Integer, UssdSurvey> record=
-                    new ProducerRecord<>("ussd-survey", i, ussdSurveyList.get(i));
+            ProducerRecord<Integer, UssdSurvey> record= new ProducerRecord<>("ussd-survey", i, ussdSurveyList.get(i));
             try {
-
                 RecordMetadata recordMetadata = producer.send(record).get();
 
                 String message = String.format("sent message to topic:%s partition:%s  offset:%s",
