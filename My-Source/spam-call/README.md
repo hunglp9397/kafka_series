@@ -48,3 +48,13 @@
 - ![4.png](IMG_GUIDE/4.png)
 - Kết quả: 
 - ![5.png](IMG_GUIDE/5.png)
+
+
+### 6. Consume message từ topic "ussd-survey" trong module 'spring-kafka-ussd'
+- Code như hình :
+- ![6.png](IMG_GUIDE/6.png)
+- Kết quả: Chắc chắn consume được nhưng lúc viet doc thì lười chạy lại :))
+
+
+
+DONE!

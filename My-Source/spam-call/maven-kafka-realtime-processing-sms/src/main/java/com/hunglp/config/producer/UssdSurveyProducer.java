@@ -52,16 +52,6 @@ public class UssdSurveyProducer {
     }
     public static void produceListUssdSurvey(List<UssdSurvey> ussdSurveyList){
 
-//        Properties props = new Properties();
-//        props.put(ProducerConfig.CLIENT_ID_CONFIG, "realtime");
-//        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-//        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
-//        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-//
-//        KafkaProducer<Integer, UssdSurvey> producer = new KafkaProducer<>(props);
-
-
-
         for(int i = 0; i < ussdSurveyList.size(); i++) {
 
             ProducerRecord<Integer, UssdSurvey> record= new ProducerRecord<>("ussd-survey", i, ussdSurveyList.get(i));
