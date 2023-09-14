@@ -40,6 +40,18 @@
 - Thứ tự mesage được gọi là datastream
 - Không thể truy vấn topics, Sử dụng Kafka Producer để send data và kafka consumer để đọc data
 
+
+### 5.bonus: Kafka segments:
+- Kafka broker chia mỗi partition thành nhiều segment
+- Mỗi segment được lưu ở một file trong broker
+- Mặc định mỗi segment có thể chứa 1GB dât
+- Nếu 1 segment nào đó tới giới hạn, nó sẽ đóng file và ghi vào một segment mới
+- Chỉ có duy nhất 1 Segment được active tại mộ thời điểm, 
+- Segment chỉ có thể bị xóa khi mà nó đã xử lí xong
+- Một vài cấu hình:
+  + log.segment.bytes: kích thước tối đa (bytes) của một segment
+  + log.segment.ms : Thời gian Kafka sẽ chờ trước khi commit segment nếu nó chưa đầy
+
 ### 6. Kafka partitions
 
 - ![img_6.png](img_readme/img_6.png)
