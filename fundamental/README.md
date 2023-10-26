@@ -1,4 +1,22 @@
 
+
+
+# Tổng quan về message brocker
+  ### 1.Định nghĩa
+ - Truyền nhận message 
+ - Giảm tải cho server bằng cách giảm tải các tương tác trực tiếp
+ - Lưu trữ request, trong trường hợp gặp sự cố
+ - Phân phối request tới các server trong các bài toán cụ thể
+ - Đơn giản hóa quá trình gửi nhận message trong môi trường micro-services
+ - ![img_1.png](img_readme/img_000.png)
+  ### 2. Các pattern để điều hướng
+ - Queue : Thường dùng khi 2 bên nhắn tin với nhau
+ - Topic : Dùng khi bắn tin trong group
+  ### 3. Phân chia broker theo cách thức hoạt động
+ - Message Base
+ - Data pipeline
+ - Khác nhau :
+ - ![img_1.png](img_readme/img_16.png)
 # ----------KAFKA-----------
 
 ## Phần 1 : Những kiến thức cơ bản
