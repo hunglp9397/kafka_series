@@ -24,6 +24,7 @@
 - Có thể scale tới 100 broker, hàng nghìn message trên giây
 - Hiệu năng cao, thời gian thực
 - Kafka đóng vai trò communicate giữa các hệ thống
+- Không mất message nếu config 
 ![img_1.png](img_readme/img_1.png)
 
 
