@@ -16,6 +16,13 @@
  - Message Base
  - Data pipeline
  - Khác nhau :
+    + Message base : Lưu trạng thái của consumer để đảm bảo nhận được message 
+    + Message bị xóa sau khi consumer consume được message
+    + Chỉ nhận được message mới, ko có khả năng lấy lại được các mesage cũ
+    + Data pipeline : 
+    + Không lưu trạng thái của consumer
+    + Có thể cấu hình klaf không xóa message sau khi consumer consume được 
+    + Cho phép nconssume được cả message mởi và message cũ
  - ![img_1.png](img_readme/img_16.png)
 # ----------KAFKA-----------
 
