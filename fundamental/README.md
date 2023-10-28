@@ -1,7 +1,7 @@
 
 
 
-# Tổng quan về message brocker
+# -------------- Tổng quan về message brocker -----------------------
   ### 1.Định nghĩa
  - Truyền nhận message 
  - Giảm tải cho server bằng cách giảm tải các tương tác trực tiếp
