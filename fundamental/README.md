@@ -339,6 +339,8 @@
   + Khi đó Kafka sẽ dùng thuật toán round-robin để chia partiton cho từng toopic ,
   + đảm bảo số lượng partition trong mỗi topic là cân bằng nhau
 
+- Chốt lại: 
+  + Với số lượng broker nhỏ hơn 6 thì best practive là sẽ chọn số lượng partition gấp đôi số lượng broker
 
 
 
