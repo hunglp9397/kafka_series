@@ -319,6 +319,22 @@
     + Có thể nhanh chóng tắt và phục hồi
     
 
+### 17. Chọn số lượng partition cho topic
+- Kafka và cụ thể là Kafka cluster là một hệ thống phân tán với số lượng lớn broker
+- Các topic được chia thành nhiều partition và được nhân bản nhờ broker 
+- Do đó 1 topic được chia thành nhiều phần nhỏ hơn 
+- Partition càng nhiều thì thông lượng càng lớn 
+- Bình thường 1 topic - 1 partition - 1 consumer sẽ xử lí đươợc 10 message/s
+- Như vậy thì 1 topic - 10 partition - 10 consumer sẽ xử lí đợc 100 message/s
+
+
+
+
+
+
+
+
+
 ## Phần 2: Advanced
 ### 2.1 Topic Advanced
 
