@@ -320,14 +320,24 @@
     
 
 ### 17. Chọn số lượng partition cho topic
-- Kafka và cụ thể là Kafka cluster là một hệ thống phân tán với số lượng lớn broker
-- Các topic được chia thành nhiều partition và được nhân bản nhờ broker 
-- Do đó 1 topic được chia thành nhiều phần nhỏ hơn 
-- Partition càng nhiều thì thông lượng càng lớn 
-- Bình thường 1 topic - 1 partition - 1 consumer sẽ xử lí đươợc 10 message/s
-- Như vậy thì 1 topic - 10 partition - 10 consumer sẽ xử lí đợc 100 message/s
+- Suy luận cơ bản : 
+  + Kafka và cụ thể là Kafka cluster là một hệ thống phân tán với số lượng lớn broker
+  + Các topic được chia thành nhiều partition và được nhân bản nhờ broker 
+  + Do đó 1 topic được chia thành nhiều phần nhỏ hơn 
+  +Partition càng nhiều thì thông lượng càng lớn 
 
+- Lý thuyết đã được kiểm chứng 
+  + Bình thường 1 topic - 1 partition - 1 consumer sẽ xử lí đươợc 10 message/s
+  + 1 partition - 1 topic có khả năng xử lí 10 MB/s 
+  +  Như vậy thì 1 topic - 10 partition - 10 consumer sẽ xử lí đợc 100 message/s
 
+- Bài toán đặt ra
+  + Như đã biết 1 partition 1 topic sẽ xử lý được message với tốc độ 10MB/s
+  + Thì muốn 1 ngày xử lý được 5 TB/s thì sẽ là 5000000/86400 = 60 MB/S
+  + Tức là cần 6 topic 
+  + Hệ thống trên chỉ chạy hoàn hảo nếu không xác định rõ key cho từng topic,
+  + Khi đó Kafka sẽ dùng thuật toán round-robin để chia partiton cho từng toopic ,
+  + đảm bảo số lượng partition trong mỗi topic là cân bằng nhau
 
 
 
