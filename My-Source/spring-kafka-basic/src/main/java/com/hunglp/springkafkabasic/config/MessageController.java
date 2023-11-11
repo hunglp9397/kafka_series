@@ -4,12 +4,12 @@ package com.hunglp.springkafkabasic.config;
 import com.hunglp.springkafkabasic.MessageReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("api/v1/")
 public class MessageController {
 
@@ -17,8 +17,8 @@ public class MessageController {
     private KafkaTemplate<String,String> kafkaTemplate;
 
     @PostMapping("/messages")
-    public void publish(@RequestBody MessageReq messageReq){
-        kafkaTemplate.send("hunglptopic", messageReq.getContent());
-        System.out.println("Sent message");
+    public String publish(@RequestBody MessageReq messageReq){
+        kafkaTemplate.send("first_topic", messageReq.getContent());
+        return "Send Success";
     }
 }

@@ -16,4 +16,32 @@
 
 
 ## Triển khai trên Docker
- 
+1. Build file jar
+2. Tao docker file:
+```dockerfile
+FROM openjdk:11
+COPY target/spring-kafka-basic-0.0.1-SNAPSHOT.jar /app/spring-kafka-basic-0.0.1-SNAPSHOT.jar
+WORKDIR /app
+CMD ["java", "-jar", "spring-kafka-basic-0.0.1-SNAPSHOT.jar"]
+```
+3. Tạo repo tren docker hub, Rồi push images lên docker hub
+```shell
+docker push 123497/spring-kafka-basic:latest
+```
+
+3. Tạo dokercompose
+
+4. Dockerize
+```shell
+   docker compose up -d
+```
+
+5. Kết qua:
+```shell
+PS D:\Workspace\Learning\kafka_series\My-Source\spring-kafka-basic> docker ps
+CONTAINER ID   IMAGE                              COMMAND                  CREATED          STATUS          PORTS                                        NAMES
+f16e95aa70a8   123497/spring-kafka-basic:latest   "java -jar spring-ka…"   36 minutes ago   Up 36 minutes   0.0.0.0:8083->8083/tcp                       spring-kafka-basic
+140c91bedf36   confluentinc/cp-kafka:latest       "/etc/confluent/dock…"   36 minutes ago   Up 36 minutes   0.0.0.0:9092->9092/tcp                       spring-kafka-basic-kafka-1
+6b207d1d27aa   confluentinc/cp-zookeeper:latest   "/etc/confluent/dock…"   36 minutes ago   Up 36 minutes   2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp   spring-kafka-basic-zookeeper-1
+
+```
