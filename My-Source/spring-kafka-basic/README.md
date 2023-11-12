@@ -29,19 +29,25 @@ CMD ["java", "-jar", "spring-kafka-basic-0.0.1-SNAPSHOT.jar"]
 docker push 123497/spring-kafka-basic:latest
 ```
 
-3. Tạo dokercompose
+3. Tạo Tạo docker compose
+[docker-compose.yml](docker-compose.yml)
+
 
 4. Dockerize
 ```shell
    docker compose up -d
 ```
 
-5. Kết qua:
+5. Kết quả:
 ```shell
-PS D:\Workspace\Learning\kafka_series\My-Source\spring-kafka-basic> docker ps
-CONTAINER ID   IMAGE                              COMMAND                  CREATED          STATUS          PORTS                                        NAMES
-f16e95aa70a8   123497/spring-kafka-basic:latest   "java -jar spring-ka…"   36 minutes ago   Up 36 minutes   0.0.0.0:8083->8083/tcp                       spring-kafka-basic
-140c91bedf36   confluentinc/cp-kafka:latest       "/etc/confluent/dock…"   36 minutes ago   Up 36 minutes   0.0.0.0:9092->9092/tcp                       spring-kafka-basic-kafka-1
-6b207d1d27aa   confluentinc/cp-zookeeper:latest   "/etc/confluent/dock…"   36 minutes ago   Up 36 minutes   2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp   spring-kafka-basic-zookeeper-1
-
+D:\Workspace\Learning\kafka_series\My-Source\spring-kafka-basic>docker-compose ps
+NAME                IMAGE                    COMMAND                  SERVICE             CREATED              STATUS              PORTS
+kafka               wurstmeister/kafka       "start-kafka.sh"         kafka               About a minute ago   Up About a minute   0.0.0.0:9092->9092/tcp
+zookeeper           wurstmeister/zookeeper   "/bin/sh -c '/usr/sb…"   zookeeper           About a minute ago   Up About a minute   22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp
 ```
+
+6.  Một vài lệnh kafka cơ bản chạy trên docker 
+- Tạo topic : `docker-compose exec kafka kafka-topics.sh --create --topic test_topic --partitions 1 --replication-factor 1 --bootstrap-server kafka:9092`
+- Publish message : 
+
+
