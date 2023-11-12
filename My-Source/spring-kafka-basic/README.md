@@ -48,6 +48,8 @@ zookeeper           wurstmeister/zookeeper   "/bin/sh -c '/usr/sb…"   zookeepe
 
 6.  Một vài lệnh kafka cơ bản chạy trên docker 
 - Tạo topic : `docker-compose exec kafka kafka-topics.sh --create --topic test_topic --partitions 1 --replication-factor 1 --bootstrap-server kafka:9092`
-- Publish message : 
+- Publish message : `docker-compose exec kafka kafka-console-producer.sh --topic test_topic --broker-list kafka:9092`
+- Consume message : `docker-compose exec kafka kafka-console-consumer.sh --topic test_topic --from-beginning --bootstrap-server kafka:9092`
 
 
+Update : Đã chạy đc bước 6 ở trên nhưng vẫn đang bị lỗi ko connect được với broker. Cos thể do chưa disable ipnetv6
