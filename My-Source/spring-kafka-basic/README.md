@@ -52,4 +52,4 @@ zookeeper           wurstmeister/zookeeper   "/bin/sh -c '/usr/sb…"   zookeepe
 - Consume message : `docker-compose exec kafka kafka-console-consumer.sh --topic test_topic --from-beginning --bootstrap-server kafka:9092`
 
 
-Update : Đã chạy đc bước 6 ở trên nhưng vẫn đang bị lỗi ko connect được với broker. Cos thể do chưa disable ipnetv6
+Update : Đã chạy đc bước 6 ở trên nhưng vẫn đang bị lỗi ko connect được với broker. Có thể do chưa disable ipnetv6
